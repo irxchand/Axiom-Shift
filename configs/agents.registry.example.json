@@ -1,0 +1,22 @@
+{
+  "agents": [
+    {
+      "id": "master-orchestrator",
+      "name": "Master Orchestrator",
+      "description": "Routes user requests to specialized agents.",
+      "chatUrl": "https://chat-provider.example.com/c/master-orchestrator-id"
+    },
+    {
+      "id": "planning-agent",
+      "name": "Study Planning Agent",
+      "description": "Generates daily and weekly study plans based on state and risk scores.",
+      "chatUrl": "https://chat-provider.example.com/c/planning-agent-id"
+    },
+    {
+      "id": "evaluation-agent",
+      "name": "Evaluation Agent",
+      "description": "Assists with creating and reviewing evaluation plans and risk heuristics.",
+      "chatUrl": "https://chat-provider.example.com/c/evaluation-agent-id"
+    }
+  ]
+}
