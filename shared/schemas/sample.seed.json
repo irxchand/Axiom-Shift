@@ -1,0 +1,39 @@
+{
+  "semester": {
+    "id": "sem_01",
+    "name": "Semester 4",
+    "startDate": "2026-01-05T00:00:00.000Z",
+    "endDate": "2026-05-15T00:00:00.000Z",
+    "timezone": "Asia/Kolkata"
+  },
+  "subjects": [
+    { "id": "sub_os", "code": "CS301", "name": "Operating Systems", "credits": 4, "color": "#4F46E5" },
+    { "id": "sub_dbms", "code": "CS302", "name": "Database Systems", "credits": 4, "color": "#059669" },
+    { "id": "sub_ai", "code": "CS303", "name": "Artificial Intelligence", "credits": 3, "color": "#DC2626" }
+  ],
+  "timetable": [
+    { "id": "tt_1", "subjectId": "sub_os", "dayOfWeek": "MONDAY", "startTime": "09:00", "endTime": "10:00", "location": "Room 204", "sessionType": "LECTURE" },
+    { "id": "tt_2", "subjectId": "sub_dbms", "dayOfWeek": "MONDAY", "startTime": "10:15", "endTime": "11:15", "location": "Room 108", "sessionType": "LECTURE" },
+    { "id": "tt_3", "subjectId": "sub_ai", "dayOfWeek": "TUESDAY", "startTime": "11:30", "endTime": "13:00", "location": "Lab 3", "sessionType": "LAB" }
+  ],
+  "evaluationPlans": [
+    {
+      "id": "ep_os",
+      "subjectId": "sub_os",
+      "components": [
+        { "id": "ec_os_mid", "name": "Midterm", "weightPercent": 30 },
+        { "id": "ec_os_final", "name": "Final Exam", "weightPercent": 50 },
+        { "id": "ec_os_assign", "name": "Assignments", "weightPercent": 20 }
+      ]
+    }
+  ],
+  "assessments": [
+    { "id": "as_os_mid", "subjectId": "sub_os", "evaluationComponentId": "ec_os_mid", "title": "OS Midterm", "dueDate": "2026-02-20T00:00:00.000Z", "maxMarks": 50 }
+  ],
+  "marks": [
+    { "id": "mk_os_mid", "assessmentId": "as_os_mid", "obtainedMarks": 41 }
+  ],
+  "sourceWorkspaces": [
+    { "id": "sw_os", "subjectId": "sub_os", "status": "NOT_CONNECTED" }
+  ]
+}

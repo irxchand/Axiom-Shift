@@ -1,13 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Phase 0: infrastructure only.
+// Do NOT add product models here yet (users, semesters, subjects, etc).
+// Those land in Phase 2 (Backend State Backbone) per Person_4_Backend_Infrastructure_SDD.md.
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
