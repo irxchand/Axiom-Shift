@@ -220,4 +220,6 @@ export interface NotificationItemDTO {
   timestamp: string;
   isRead: boolean;
   isSnoozed: boolean;
+  snoozedUntil?: string;
 }
+
