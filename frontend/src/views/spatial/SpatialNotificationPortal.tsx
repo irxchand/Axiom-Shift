@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 import type { NotificationItemDTO } from '../../types/dto';
 
 export const SpatialNotificationPortal: React.FC = () => {
-  const { data: initialNotifs = [] } = useQuery({ queryKey: ['notifications'], queryFn: mockBackendAPI.getNotifications });
+  const { data: initialNotifs = [], isLoading, isError } = useQuery({ 
+    queryKey: ['notifications'], 
+    queryFn: backendAPI.getNotifications 
+  });
   const [notifications, setNotifications] = useState<NotificationItemDTO[]>(initialNotifs);
+
+  useEffect(() => {
+    if (initialNotifs.length > 0) {
+      setNotifications(initialNotifs);
+    }
+  }, [initialNotifs]);
+
 
   const handleDismiss = (id: string) => setNotifications(prev => prev.filter(n => n.id !== id));
   const handleSnooze = (id: string) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, isSnoozed: true } : n));
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Dispatches...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading university dispatches.</ParchmentCard>;
+  }
 
   return (
     <div className="space-y-6 animate-fadeIn pb-24 text-[#d8cebe] font-sans">

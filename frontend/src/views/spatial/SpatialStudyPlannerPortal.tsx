@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Check, Play, Pause, RotateCcw } from 'lucide-react';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 import type { StudyTaskDTO } from '../../types/dto';
 
 export const SpatialStudyPlannerPortal: React.FC = () => {
-  const { data: initialTasks = [] } = useQuery({ queryKey: ['studyTasks'], queryFn: mockBackendAPI.getStudyTasks });
+  const { data: initialTasks = [], isLoading, isError } = useQuery({ 
+    queryKey: ['studyTasks'], 
+    queryFn: backendAPI.getStudyTasks 
+  });
   const [tasks, setTasks] = useState<StudyTaskDTO[]>(initialTasks);
 
   // Focus Timer state
   const [timerSeconds, setTimerSeconds] = useState(25 * 60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  useEffect(() => {
+    if (initialTasks.length > 0) {
+      setTasks(initialTasks);
+    }
+  }, [initialTasks]);
 
   useEffect(() => {
     let interval: any = null;
@@ -22,6 +31,15 @@ export const SpatialStudyPlannerPortal: React.FC = () => {
     }
     return () => clearInterval(interval);
   }, [isTimerRunning, timerSeconds]);
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Study Journal...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading study tasks.</ParchmentCard>;
+  }
+
 
   const toggleStatus = (id: string) => {
     setTasks(prev => prev.map(t => t.id === id ? { ...t, status: t.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED' } : t));

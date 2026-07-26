@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Bell, AlertTriangle, ShieldCheck, Sparkles, Clock, Check, Moon, Trash2 } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import type { NotificationItemDTO } from '../types/dto';
 
 export const NotificationCenterView: React.FC = () => {
-  const { data: initialNotifs = [] } = useQuery({ queryKey: ['notifications'], queryFn: mockBackendAPI.getNotifications });
+  const { data: initialNotifs = [], isLoading, isError } = useQuery({ 
+    queryKey: ['notifications'], 
+    queryFn: backendAPI.getNotifications 
+  });
   const [notifications, setNotifications] = useState<NotificationItemDTO[]>(initialNotifs);
   const [filterPriority, setFilterPriority] = useState<string>('ALL');
+
+  useEffect(() => {
+    if (initialNotifs.length > 0) {
+      setNotifications(initialNotifs);
+    }
+  }, [initialNotifs]);
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING NOTIFICATION DISPATCHER...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING NOTIFICATION TELEMETRY</div>;
+  }
 
   const handleDismiss = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));

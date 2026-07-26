@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Search } from 'lucide-react';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 
 export const SpatialTimetablePortal: React.FC = () => {
-  const { data: slots = [] } = useQuery({ queryKey: ['timetableSlots'], queryFn: mockBackendAPI.getTimetableSlots });
+  const { data: slots = [], isLoading, isError } = useQuery({ 
+    queryKey: ['timetableSlots'], 
+    queryFn: backendAPI.getTimetableSlots 
+  });
   const [selectedDay, setSelectedDay] = useState<'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'>('MON');
   const [query, setQuery] = useState('');
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Academic Schedule...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading timetable slots.</ParchmentCard>;
+  }
 
   const days: Array<'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'> = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 

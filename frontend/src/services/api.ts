@@ -16,8 +16,12 @@ import type {
   NotificationItemDTO,
   AcademicEventDTO
 } from '../types/dto';
+import { backendAPI } from './backendAPI';
+
+export { backendAPI };
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 
 export const mockBackendAPI = {
   getCurrentClass: async (): Promise<CurrentClassDTO> => {

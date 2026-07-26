@@ -11,19 +11,20 @@ import {
   Sparkles,
   X
 } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import { SemesterMap3D } from '../components/3d/SemesterMap3D';
 import { useUIStore } from '../store/useUIStore';
 
 export const CommandCenterView: React.FC = () => {
   const { selected3DNode, setSelected3DNode } = useUIStore();
 
-  const { data: currentClass } = useQuery({ queryKey: ['currentClass'], queryFn: mockBackendAPI.getCurrentClass });
-  const { data: nextClass } = useQuery({ queryKey: ['nextClass'], queryFn: mockBackendAPI.getNextClass });
-  const { data: academicOverview } = useQuery({ queryKey: ['academicOverview'], queryFn: mockBackendAPI.getAcademicOverview });
-  const { data: aiBriefing } = useQuery({ queryKey: ['aiBriefing'], queryFn: mockBackendAPI.getAIBriefing });
-  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: mockBackendAPI.getBackendRiskOverview });
-  const { data: semester3DNodes = [] } = useQuery({ queryKey: ['semester3DNodes'], queryFn: mockBackendAPI.getSemester3DNodes });
+  const { data: currentClass } = useQuery({ queryKey: ['currentClass'], queryFn: backendAPI.getCurrentClass });
+  const { data: nextClass } = useQuery({ queryKey: ['nextClass'], queryFn: backendAPI.getNextClass });
+  const { data: academicOverview } = useQuery({ queryKey: ['academicOverview'], queryFn: backendAPI.getAcademicOverview });
+  const { data: aiBriefing } = useQuery({ queryKey: ['aiBriefing'], queryFn: backendAPI.getAIBriefing });
+  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: backendAPI.getBackendRiskOverview });
+  const { data: semester3DNodes = [] } = useQuery({ queryKey: ['semester3DNodes'], queryFn: backendAPI.getSemester3DNodes });
+
 
   return (
     <div className="space-y-6 animate-fadeIn">

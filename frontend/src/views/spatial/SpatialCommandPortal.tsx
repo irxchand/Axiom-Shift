@@ -1,14 +1,15 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 
 export const SpatialCommandPortal: React.FC = () => {
-  const { data: currentClass } = useQuery({ queryKey: ['currentClass'], queryFn: mockBackendAPI.getCurrentClass });
-  const { data: nextClass } = useQuery({ queryKey: ['nextClass'], queryFn: mockBackendAPI.getNextClass });
-  const { data: academicOverview } = useQuery({ queryKey: ['academicOverview'], queryFn: mockBackendAPI.getAcademicOverview });
-  const { data: aiBriefing } = useQuery({ queryKey: ['aiBriefing'], queryFn: mockBackendAPI.getAIBriefing });
-  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: mockBackendAPI.getBackendRiskOverview });
+  const { data: currentClass } = useQuery({ queryKey: ['currentClass'], queryFn: backendAPI.getCurrentClass });
+  const { data: nextClass } = useQuery({ queryKey: ['nextClass'], queryFn: backendAPI.getNextClass });
+  const { data: academicOverview } = useQuery({ queryKey: ['academicOverview'], queryFn: backendAPI.getAcademicOverview });
+  const { data: aiBriefing } = useQuery({ queryKey: ['aiBriefing'], queryFn: backendAPI.getAIBriefing });
+  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: backendAPI.getBackendRiskOverview });
+
 
   return (
     <div className="space-y-6 animate-fadeIn pb-24 text-[#d8cebe] font-sans">

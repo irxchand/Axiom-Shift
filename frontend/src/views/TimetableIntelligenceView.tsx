@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Calendar, Clock, MapPin, User, Search, Filter, CheckCircle, Play } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import type { TimetableSlotDTO } from '../types/dto';
 
 export const TimetableIntelligenceView: React.FC = () => {
-  const { data: slots = [] } = useQuery({ queryKey: ['timetableSlots'], queryFn: mockBackendAPI.getTimetableSlots });
+  const { data: slots = [], isLoading, isError } = useQuery({ 
+    queryKey: ['timetableSlots'], 
+    queryFn: backendAPI.getTimetableSlots 
+  });
   const [selectedDay, setSelectedDay] = useState<'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'>('MON');
   const [searchQuery, setSearchQuery] = useState('');
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING TIMETABLE TELEMETRY...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING TIMETABLE DATA</div>;
+  }
 
   const days: Array<'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'> = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 

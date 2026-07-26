@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, RefreshCw, Key, ShieldCheck, CheckCircle2, AlertCircle, FileCode, Upload } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 
 export const WorkspaceConnectionView: React.FC = () => {
-  const { data: workspace } = useQuery({ queryKey: ['workspaceStatus'], queryFn: mockBackendAPI.getWorkspaceStatus });
+  const { data: workspace, isLoading, isError } = useQuery({ 
+    queryKey: ['workspaceStatus'], 
+    queryFn: backendAPI.getWorkspaceStatus 
+  });
   const [cookieJson, setCookieJson] = useState('');
   const [importSuccess, setImportSuccess] = useState(false);
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING WORKSPACE CONNECTION STATUS...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING WORKSPACE GATEWAY TELEMETRY</div>;
+  }
 
   const handleImport = (e: React.FormEvent) => {
     e.preventDefault();

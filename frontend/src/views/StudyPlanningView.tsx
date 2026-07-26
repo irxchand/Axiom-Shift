@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ListTodo, CheckCircle2, Clock, BookOpen, FileText, Check, X, Calendar, BarChart3 } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import type { StudyTaskDTO } from '../types/dto';
 
 export const StudyPlanningView: React.FC = () => {
-  const { data: initialTasks = [] } = useQuery({ queryKey: ['studyTasks'], queryFn: mockBackendAPI.getStudyTasks });
+  const { data: initialTasks = [], isLoading, isError } = useQuery({ 
+    queryKey: ['studyTasks'], 
+    queryFn: backendAPI.getStudyTasks 
+  });
   const [tasks, setTasks] = useState<StudyTaskDTO[]>(initialTasks);
+
+  useEffect(() => {
+    if (initialTasks.length > 0) {
+      setTasks(initialTasks);
+    }
+  }, [initialTasks]);
+
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING STUDY PLANNING AGENDA...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING STUDY TASKS</div>;
+  }
 
   const toggleTaskStatus = (id: string) => {
     setTasks(prev => prev.map(t => {

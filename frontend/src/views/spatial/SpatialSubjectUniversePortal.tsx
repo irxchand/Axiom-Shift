@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 import { KnowledgeGraph3D } from '../../components/3d/KnowledgeGraph3D';
 
 export const SpatialSubjectUniversePortal: React.FC = () => {
-  const { data: subjects = [] } = useQuery({ queryKey: ['subjects'], queryFn: mockBackendAPI.getSubjects });
+  const { data: subjects = [], isLoading, isError } = useQuery({ 
+    queryKey: ['subjects'], 
+    queryFn: backendAPI.getSubjects 
+  });
   const [selectedCode, setSelectedCode] = useState('CS602');
 
   const selectedSubject = subjects.find(s => s.code === selectedCode) || subjects[0];
   const { data: concepts = [] } = useQuery({
     queryKey: ['knowledgeConcepts', selectedCode],
-    queryFn: () => mockBackendAPI.getKnowledgeConcepts(selectedCode)
+    queryFn: () => backendAPI.getKnowledgeConcepts(selectedCode)
   });
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Course Library...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading course catalog.</ParchmentCard>;
+  }
 
   return (
     <div className="space-y-6 animate-fadeIn pb-24 text-[#d8cebe] font-sans">

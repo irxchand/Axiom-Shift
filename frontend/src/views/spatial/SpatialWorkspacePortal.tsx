@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Upload } from 'lucide-react';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 
 export const SpatialWorkspacePortal: React.FC = () => {
-  const { data: workspace } = useQuery({ queryKey: ['workspaceStatus'], queryFn: mockBackendAPI.getWorkspaceStatus });
+  const { data: workspace, isLoading, isError } = useQuery({ 
+    queryKey: ['workspaceStatus'], 
+    queryFn: backendAPI.getWorkspaceStatus 
+  });
   const [cookieJson, setCookieJson] = useState('');
   const [success, setSuccess] = useState(false);
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Workspace Telemetry...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading workspace status.</ParchmentCard>;
+  }
 
   const handleImport = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,10 +1,21 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { mockBackendAPI } from '../../services/api';
+import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 
 export const SpatialThreatRiskPortal: React.FC = () => {
-  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: mockBackendAPI.getBackendRiskOverview });
+  const { data: riskOverview, isLoading, isError } = useQuery({ 
+    queryKey: ['backendRiskOverview'], 
+    queryFn: backendAPI.getBackendRiskOverview 
+  });
+
+  if (isLoading) {
+    return <ParchmentCard className="p-8 text-center text-xs text-gold-foil">Loading Academic Records...</ParchmentCard>;
+  }
+
+  if (isError) {
+    return <ParchmentCard className="p-8 text-center text-xs text-[#6b1d2f]">Error loading academic risk overview.</ParchmentCard>;
+  }
 
   return (
     <div className="space-y-6 animate-fadeIn pb-24 text-[#d8cebe] font-sans">
@@ -28,15 +39,16 @@ export const SpatialThreatRiskPortal: React.FC = () => {
       {/* Threat & Ledger Core Stage */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <ParchmentCard glow className="p-6 flex flex-col items-center justify-center text-center space-y-3">
-          <div className="w-14 h-14 rounded-full bg-[#2a3c2a] flex items-center justify-center text-emerald-400 font-bold text-lg shadow-md border border-emerald-500/30">
+          <div className="w-14 h-14 rounded-full bg-[#2a3c2a] flex items-center justify-center text-emerald-400 font-bold text-lg shadow-md border border-emerald-500/30 mx-auto">
             A
           </div>
-          <div>
-            <span className="text-xs text-[#9a9082] block font-medium">SCHOLASTIC STANDING</span>
-            <h2 className="text-2xl font-bold text-[#c9a45c] uppercase">{riskOverview?.overallRiskLevel}</h2>
-            <p className="text-xs text-[#9a9082] mt-1 font-medium">Academic Risk Index: {riskOverview?.backendRiskScore} / 100</p>
+          <div className="text-center w-full">
+            <span className="text-xs text-[#9a9082] block font-medium uppercase tracking-wider mb-1">SCHOLASTIC STANDING</span>
+            <h2 className="text-2xl font-bold text-[#c9a45c] uppercase tracking-wide">{riskOverview?.overallRiskLevel ?? 'SAFE'}</h2>
+            <p className="text-xs text-[#9a9082] mt-1 font-medium">Academic Risk Index: {riskOverview?.backendRiskScore ?? 12} / 100</p>
           </div>
         </ParchmentCard>
+
 
         {/* Risk Breakdown Factors */}
         <ParchmentCard className="lg:col-span-2 p-5 space-y-3">

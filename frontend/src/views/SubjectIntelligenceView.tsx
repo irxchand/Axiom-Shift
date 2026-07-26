@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Brain } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import { KnowledgeGraph3D } from '../components/3d/KnowledgeGraph3D';
 
 export const SubjectIntelligenceView: React.FC = () => {
-  const { data: subjects = [] } = useQuery({ queryKey: ['subjects'], queryFn: mockBackendAPI.getSubjects });
+  const { data: subjects = [], isLoading: loadingSubjects, isError: errorSubjects } = useQuery({ 
+    queryKey: ['subjects'], 
+    queryFn: backendAPI.getSubjects 
+  });
   const [selectedSubjectCode, setSelectedSubjectCode] = useState('CS602');
 
   const selectedSubject = subjects.find(s => s.code === selectedSubjectCode) || subjects[0];
 
-  const { data: conceptNodes = [] } = useQuery({
+  const { data: conceptNodes = [], isLoading: loadingConcepts, isError: errorConcepts } = useQuery({
     queryKey: ['knowledgeConcepts', selectedSubjectCode],
-    queryFn: () => mockBackendAPI.getKnowledgeConcepts(selectedSubjectCode)
+    queryFn: () => backendAPI.getKnowledgeConcepts(selectedSubjectCode)
   });
+
+  if (loadingSubjects) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING SUBJECT INTELLIGENCE DATA...</div>;
+  }
+
+  if (errorSubjects) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING SUBJECT INTELLIGENCE TELEMETRY</div>;
+  }
 
   return (
     <div className="space-y-6 animate-fadeIn">

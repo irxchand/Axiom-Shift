@@ -11,6 +11,8 @@ export const CinematicBootSequence: React.FC = () => {
     if (hasBooted) return;
 
     setProgress(0);
+    setIsOpen(false);
+    setStageText('INITIALIZING ACADEMIC ENGINE...');
 
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -26,7 +28,7 @@ export const CinematicBootSequence: React.FC = () => {
 
         return next;
       });
-    }, 90);
+    }, 80);
 
     return () => clearInterval(interval);
   }, [hasBooted]);
@@ -35,8 +37,9 @@ export const CinematicBootSequence: React.FC = () => {
     setIsOpen(true);
     setTimeout(() => {
       setHasBooted(true);
-    }, 500);
+    }, 400);
   };
+
 
   if (hasBooted) return null;
 

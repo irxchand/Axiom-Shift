@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { UploadCloud, FileText, CheckCircle2, RefreshCw, AlertCircle, Cpu, Database, Layers } from 'lucide-react';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
 import type { SourceDocumentDTO } from '../types/dto';
 
 export const SourceHandoffView: React.FC = () => {
-  const { data: initialDocs = [] } = useQuery({ queryKey: ['sourceDocuments'], queryFn: mockBackendAPI.getSourceDocuments });
+  const { data: initialDocs = [], isLoading, isError } = useQuery({ 
+    queryKey: ['sourceDocuments'], 
+    queryFn: backendAPI.getSourceDocuments 
+  });
   const [docs, setDocs] = useState<SourceDocumentDTO[]>(initialDocs);
   const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    if (initialDocs.length > 0) {
+      setDocs(initialDocs);
+    }
+  }, [initialDocs]);
+
+  if (isLoading) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING SOURCE INGESTION PIPELINE...</div>;
+  }
+
+  if (isError) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING SOURCE DOCUMENTS</div>;
+  }
 
   const handleSimulatedDrop = (e: React.DragEvent | React.ChangeEvent) => {
     e.preventDefault();

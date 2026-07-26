@@ -2,11 +2,27 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { LineChart, ShieldAlert, Award, TrendingUp, AlertOctagon, Target, CheckCircle2 } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import { mockBackendAPI } from '../services/api';
+import { backendAPI } from '../services/backendAPI';
+import type { BackendRiskOverviewDTO, GradeCardDTO } from '../types/dto';
 
 export const EvaluationRiskView: React.FC = () => {
-  const { data: riskOverview } = useQuery({ queryKey: ['backendRiskOverview'], queryFn: mockBackendAPI.getBackendRiskOverview });
-  const { data: gradeCards = [] } = useQuery({ queryKey: ['gradeCards'], queryFn: mockBackendAPI.getGradeCards });
+  const { data: riskOverview, isLoading: loadingRisk, isError: errorRisk } = useQuery<BackendRiskOverviewDTO>({ 
+    queryKey: ['backendRiskOverview'], 
+    queryFn: backendAPI.getBackendRiskOverview 
+  });
+  const { data: gradeCards = [], isLoading: loadingGrades, isError: errorGrades } = useQuery<GradeCardDTO[]>({ 
+    queryKey: ['gradeCards'], 
+    queryFn: backendAPI.getGradeCards 
+  });
+
+
+  if (loadingRisk || loadingGrades) {
+    return <div className="p-8 text-center text-cyan-400 font-mono-tech animate-pulse">LOADING EVALUATION AND RISK TELEMETRY...</div>;
+  }
+
+  if (errorRisk || errorGrades) {
+    return <div className="p-8 text-center text-rose-400 font-mono-tech">ERROR LOADING EVALUATION AND RISK DATA</div>;
+  }
 
   // Historical SGPA trajectory (provided by backend)
   const trajectoryData = [
