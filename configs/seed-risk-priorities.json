@@ -1,0 +1,49 @@
+{
+  "riskScores": [
+    {
+      "riskScoreId": "risk_01",
+      "subjectId": "sub_stats",
+      "riskType": "LOW_GRADE",
+      "score": 0.82,
+      "severity": "HIGH",
+      "drivers": [
+        "12 marks lost in Mid-Semester Exam.",
+        "Required future average in remaining assessments is > 85% to hit target SGPA."
+      ],
+      "recommendedActions": [
+        "Schedule dedicated revision block for Probability Distributions.",
+        "Query Source Workspace for previous year CA papers."
+      ],
+      "calculatedAt": "2026-07-26T10:00:00Z"
+    },
+    {
+      "riskScoreId": "risk_02",
+      "subjectId": "sub_sml",
+      "riskType": "MISSED_DEADLINE",
+      "score": 0.45,
+      "severity": "LOW",
+      "drivers": [
+        "Strong performance in MSE (26/30).",
+        "Data Pipeline Assignment approaching in 20 days."
+      ],
+      "recommendedActions": [
+        "Begin data preprocessing for CA assignment."
+      ],
+      "calculatedAt": "2026-07-26T10:00:00Z"
+    }
+  ],
+  "todayPriorities": [
+    {
+      "priorityId": "pri_01",
+      "level": "HIGH",
+      "title": "Review Probability Distributions",
+      "reason": "Weak subject with high marks lost in recent assessment."
+    },
+    {
+      "priorityId": "pri_02",
+      "level": "MEDIUM",
+      "title": "Start SML Data Pipeline",
+      "reason": "Upcoming assignment due in 3 weeks."
+    }
+  ]
+}

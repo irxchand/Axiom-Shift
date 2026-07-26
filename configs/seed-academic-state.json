@@ -1,0 +1,66 @@
+{
+  "activeSemester": {
+    "semesterId": "sem_03",
+    "name": "Fall 2026",
+    "number": 3,
+    "status": "ACTIVE",
+    "program": "B.Tech AIML",
+    "targetSgpa": 8.65
+  },
+  "subjects": [
+    {
+      "subjectId": "sub_sml",
+      "code": "SML",
+      "name": "Supervised Machine Learning",
+      "shortName": "SML",
+      "credits": 4,
+      "subjectType": "THEORY_LAB",
+      "status": "ACTIVE"
+    },
+    {
+      "subjectId": "sub_linalg",
+      "code": "LINALG",
+      "name": "Advanced Linear Algebra",
+      "shortName": "LinAlg",
+      "credits": 4,
+      "subjectType": "THEORY",
+      "status": "ACTIVE"
+    },
+    {
+      "subjectId": "sub_stats",
+      "code": "STATS",
+      "name": "Probability and Statistics",
+      "shortName": "Stats",
+      "credits": 3,
+      "subjectType": "THEORY",
+      "status": "ACTIVE"
+    },
+    {
+      "subjectId": "sub_os",
+      "code": "OS",
+      "name": "Operating Systems",
+      "shortName": "OS",
+      "credits": 4,
+      "subjectType": "THEORY_LAB",
+      "status": "ACTIVE"
+    }
+  ],
+  "todaySchedule": [
+    {
+      "eventId": "evt_01",
+      "subjectId": "sub_linalg",
+      "title": "Vector Spaces Lecture",
+      "startAt": "09:00",
+      "endAt": "10:30",
+      "location": "Room 402"
+    },
+    {
+      "eventId": "evt_02",
+      "subjectId": "sub_stats",
+      "title": "Probability Distributions",
+      "startAt": "11:00",
+      "endAt": "12:30",
+      "location": "Room 405"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "subjectId": "sub_sml",
+    "totalMarks": 100,
+    "creditWeight": 4,
+    "assessments": [
+      {
+        "assessmentId": "asm_sml_mse",
+        "name": "Mid-Semester Exam",
+        "type": "EXAM",
+        "category": "MSE",
+        "marksMax": 30,
+        "marksObtained": 26,
+        "marksLost": 4,
+        "status": "COMPLETED"
+      },
+      {
+        "assessmentId": "asm_sml_ca1",
+        "name": "Data Pipeline Assignment",
+        "type": "ASSIGNMENT",
+        "category": "CA",
+        "marksMax": 20,
+        "marksObtained": null,
+        "marksLost": null,
+        "scheduledAt": "2026-08-15T23:59:00Z",
+        "status": "PLANNED"
+      }
+    ]
+  },
+  {
+    "subjectId": "sub_stats",
+    "totalMarks": 100,
+    "creditWeight": 3,
+    "assessments": [
+      {
+        "assessmentId": "asm_stats_mse",
+        "name": "Mid-Semester Exam",
+        "type": "EXAM",
+        "category": "MSE",
+        "marksMax": 30,
+        "marksObtained": 18,
+        "marksLost": 12,
+        "status": "COMPLETED"
+      }
+    ]
+  }
+]
