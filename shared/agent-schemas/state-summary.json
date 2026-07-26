@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StateSummary",
+  "description": "The canonical, read-only snapshot of the student's operational reality for agent reasoning.",
+  "type": "object",
+  "properties": {
+    "activeSemester": { "type": "object", "description": "Current semester metadata and targets." },
+    "subjects": { "type": "array", "items": { "type": "object" }, "description": "List of active subjects." },
+    "timetableSummary": { "type": "object", "description": "Current and next class context." },
+    "upcomingAssessments": { "type": "array", "items": { "type": "object" }, "description": "Assessments due within the horizon." },
+    "openAssignments": { "type": "array", "items": { "type": "object" }, "description": "Pending homework and labs." },
+    "currentMarks": { "type": "array", "items": { "type": "object" }, "description": "Scored outcomes and marks lost." },
+    "riskScores": { "type": "array", "items": { "type": "object" }, "description": "Deterministic risk severities and drivers." },
+    "goals": { "type": "array", "items": { "type": "object" }, "description": "Student's academic and operational targets." },
+    "availableFreeWindows": { "type": "array", "items": { "type": "object" }, "description": "Time blocks open for study planning." },
+    "sourceWorkspaceStatus": { "type": "object", "description": "Mapping of subjects to external notebook sync states." }
+  },
+  "required": [
+    "activeSemester",
+    "subjects",
+    "timetableSummary",
+    "upcomingAssessments",
+    "openAssignments",
+    "currentMarks",
+    "riskScores",
+    "goals",
+    "availableFreeWindows",
+    "sourceWorkspaceStatus"
+  ],
+  "additionalProperties": true
+}
