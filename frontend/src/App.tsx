@@ -35,6 +35,9 @@ export const App: React.FC = () => {
             <Route path="evaluations" element={<SpatialThreatRiskPortal />} />
             <Route path="ai-chat" element={<SpatialAICorePortal />} />
             <Route path="ingest" element={<SpatialSourceHandoffPortal />} />
+            <Route path="ingestion" element={<SpatialSourceHandoffPortal />} />
+            <Route path="sources" element={<SpatialSourceHandoffPortal />} />
+            <Route path="source-handoff" element={<SpatialSourceHandoffPortal />} />
             <Route path="planner" element={<SpatialStudyPlannerPortal />} />
             <Route path="notifications" element={<SpatialNotificationPortal />} />
             <Route path="workspace" element={<SpatialWorkspacePortal />} />
