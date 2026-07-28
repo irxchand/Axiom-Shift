@@ -19,6 +19,16 @@
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
       "capabilities": ["generate_plan"],
       "outputSchema": "StudyPlan"
+    },
+    {
+      "agentId": "source-workspace-agent",
+      "displayName": "Source Workspace Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/source-workspace",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["query_external_workspace", "route_subject_questions"],
+      "outputSchema": "SourceWorkspaceQueryPlan"
     }
   ]
 }
