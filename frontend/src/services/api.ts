@@ -263,11 +263,11 @@ export const mockBackendAPI = {
   getGradeCards: async (): Promise<GradeCardDTO[]> => {
     await delay(150);
     return [
-      { subjectCode: 'CS601', subjectName: 'Neural Networks', credits: 4, obtainedScore: 88, predictedGrade: 'A+', backendRiskLevel: 'SAFE', targetMarksNextExam: 82 },
-      { subjectCode: 'CS602', subjectName: 'Distributed Systems', credits: 4, obtainedScore: 76, predictedGrade: 'A', backendRiskLevel: 'SAFE', targetMarksNextExam: 78 },
-      { subjectCode: 'CS603', subjectName: 'Compiler Design', credits: 3, obtainedScore: 92, predictedGrade: 'A+', backendRiskLevel: 'SAFE', targetMarksNextExam: 85 },
-      { subjectCode: 'CS604', subjectName: 'Complexity Theory', credits: 4, obtainedScore: 71, predictedGrade: 'B+', backendRiskLevel: 'WARNING', targetMarksNextExam: 90 },
-      { subjectCode: 'CS605', subjectName: 'Quantum Computing', credits: 3, obtainedScore: 62, predictedGrade: 'B', backendRiskLevel: 'RISK', targetMarksNextExam: 80 }
+      { subjectCode: 'CS601', subjectName: 'Neural Networks & Deep Learning', credits: 4, obtainedScore: 94, predictedGrade: 'O', backendRiskLevel: 'SAFE', targetMarksNextExam: 82 },
+      { subjectCode: 'CS602', subjectName: 'Distributed Systems & Cloud Architecture', credits: 4, obtainedScore: 86, predictedGrade: 'A+', backendRiskLevel: 'SAFE', targetMarksNextExam: 78 },
+      { subjectCode: 'CS603', subjectName: 'Advanced Compiler Design', credits: 3, obtainedScore: 81, predictedGrade: 'A', backendRiskLevel: 'SAFE', targetMarksNextExam: 85 },
+      { subjectCode: 'CS604', subjectName: 'Algorithmic Complexity Theory', credits: 4, obtainedScore: 73, predictedGrade: 'B+', backendRiskLevel: 'WARNING', targetMarksNextExam: 90 },
+      { subjectCode: 'CS605', subjectName: 'Quantum Computing Fundamentals', credits: 3, obtainedScore: 65, predictedGrade: 'B', backendRiskLevel: 'RISK', targetMarksNextExam: 80 }
     ];
   },
 
