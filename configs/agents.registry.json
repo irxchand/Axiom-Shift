@@ -1,0 +1,24 @@
+{
+  "agents": [
+    {
+      "agentId": "master-orchestrator",
+      "displayName": "Master Orchestrator",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/master",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["route_intent", "compose_response"],
+      "outputSchema": "AgentRouteDecision"
+    },
+    {
+      "agentId": "planning-agent",
+      "displayName": "Planning Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/planning",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["generate_plan"],
+      "outputSchema": "StudyPlan"
+    }
+  ]
+}
