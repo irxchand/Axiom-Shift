@@ -4,9 +4,10 @@ interface SpatialGlassCardProps {
   children: React.ReactNode;
   className?: string;
   glow?: boolean;
+  onClick?: () => void;
 }
 
-export const SpatialGlassCard: React.FC<SpatialGlassCardProps> = ({ children, className = '', glow = false }) => {
+export const SpatialGlassCard: React.FC<SpatialGlassCardProps> = ({ children, className = '', glow = false, onClick }) => {
   const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg)');
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -26,6 +27,7 @@ export const SpatialGlassCard: React.FC<SpatialGlassCardProps> = ({ children, cl
 
   return (
     <div
+      onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ transform, transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)' }}
