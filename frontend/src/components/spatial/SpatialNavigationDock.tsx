@@ -49,7 +49,7 @@ export const SpatialNavigationDock: React.FC = () => {
         <div className="h-5 w-[1px] bg-[#28211a]" />
 
         {/* Navigation Tabs */}
-        <nav className="flex items-center space-x-1">
+        <nav className="flex items-center space-x-1 overflow-x-auto max-w-[70vw] sm:max-w-none scrollbar-none py-0.5">
           {archiveChapters.map((chapter) => (
             <NavLink
               key={chapter.path}
