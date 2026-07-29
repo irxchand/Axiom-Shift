@@ -90,14 +90,60 @@ export const SpatialCommandPortal: React.FC = () => {
             </div>
           </ParchmentCard>
 
-          {/* Assignment Milestone Card (Replaced Attendance) */}
-          <ParchmentCard className="p-5 flex items-center justify-between">
-            <div className="space-y-1">
-              <h4 className="text-xs font-semibold text-[#c9a45c] uppercase">ASSIGNMENT MILESTONES</h4>
-              <p className="text-xs text-[#9a9082]">Completed {academicOverview?.completedAssignmentsCount} of {academicOverview?.totalAssignmentsCount} Submissions</p>
+          {/* Assignment Milestone Card (Option 1 Segmented Step Tracker) */}
+          <ParchmentCard className="p-5 space-y-3.5">
+            <div className="flex justify-between items-center border-b border-[#28211a] pb-2.5">
+              <div>
+                <h4 className="text-xs font-semibold text-[#c9a45c] uppercase tracking-wider">ASSIGNMENT MILESTONES</h4>
+                <p className="text-xs text-[#9a9082] mt-0.5">
+                  Completed <strong className="text-[#f5ebe0]">{academicOverview?.completedAssignmentsCount}</strong> of <strong className="text-[#f5ebe0]">{academicOverview?.totalAssignmentsCount}</strong> Submissions
+                </p>
+              </div>
+
+              {/* Space-Occupying Badge */}
+              <div className="px-4 py-2 rounded-xl bg-[#6b1d2f] border border-[#c9a45c]/50 text-center shadow-md">
+                <span className="text-sm font-black text-[#f5ebe0] font-mono block">
+                  {academicOverview?.assignmentCompletionPercent}%
+                </span>
+                <span className="text-[8px] font-bold text-[#c9a45c] uppercase tracking-wider block">
+                  COMPLETED
+                </span>
+              </div>
             </div>
-            <div className="w-14 h-14 rounded-full bg-[#6b1d2f] border border-[#c9a45c]/50 flex items-center justify-center font-bold text-base text-[#f5ebe0]">
-              {academicOverview?.assignmentCompletionPercent}%
+
+            {/* Segmented Milestone Step Tracker Pills */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="p-2.5 rounded-xl bg-[#1b1612] border border-emerald-500/40 flex items-center justify-between text-xs">
+                <div className="truncate">
+                  <span className="text-[9px] text-[#9a9082] block font-mono">CS601</span>
+                  <span className="text-[11px] font-bold text-[#f5ebe0] truncate">Lab 1 Report</span>
+                </div>
+                <span className="text-emerald-400 font-bold text-xs shrink-0">✓</span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-[#1b1612] border border-emerald-500/40 flex items-center justify-between text-xs">
+                <div className="truncate">
+                  <span className="text-[9px] text-[#9a9082] block font-mono">CS602</span>
+                  <span className="text-[11px] font-bold text-[#f5ebe0] truncate">Quiz 1 Set</span>
+                </div>
+                <span className="text-emerald-400 font-bold text-xs shrink-0">✓</span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-[#1b1612] border border-emerald-500/40 flex items-center justify-between text-xs">
+                <div className="truncate">
+                  <span className="text-[9px] text-[#9a9082] block font-mono">CS604</span>
+                  <span className="text-[11px] font-bold text-[#f5ebe0] truncate">Algo Project</span>
+                </div>
+                <span className="text-emerald-400 font-bold text-xs shrink-0">✓</span>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-[#6b1d2f]/40 border border-[#c9a45c]/50 flex items-center justify-between text-xs">
+                <div className="truncate">
+                  <span className="text-[9px] text-[#c9a45c] block font-mono">CS603</span>
+                  <span className="text-[11px] font-bold text-[#f5ebe0] truncate">Compiler Lab</span>
+                </div>
+                <span className="text-[#c9a45c] font-bold text-[9px] px-1.5 py-0.5 rounded bg-[#1b1612] shrink-0">DUE 2D</span>
+              </div>
             </div>
           </ParchmentCard>
         </div>
