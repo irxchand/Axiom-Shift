@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Bell, CheckCircle2, ShieldCheck, Clock, Search, Filter, Trash2, MailCheck, AlertTriangle, Info, Zap, ShieldAlert, Cpu } from 'lucide-react';
+import { Bell, CheckCircle2, ShieldCheck, Clock, Search, Filter, Trash2, MailCheck, AlertTriangle, Info, Zap, ShieldAlert, Cpu, Sparkles, BookOpen, Flame, Check } from 'lucide-react';
 import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 import type { NotificationItemDTO } from '../../types/dto';
@@ -20,6 +20,7 @@ export const SpatialNotificationPortal: React.FC = () => {
   const [snoozeMinutesMap, setSnoozeMinutesMap] = useState<Record<string, number>>({});
   const [customTimeMap, setCustomTimeMap] = useState<Record<string, string>>({});
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isBriefingAcknowledged, setIsBriefingAcknowledged] = useState<boolean>(false);
 
   useEffect(() => {
     if (initialNotifs.length > 0) {
@@ -55,6 +56,12 @@ export const SpatialNotificationPortal: React.FC = () => {
     setNotifications(prev => prev.filter(n => !n.isRead));
     setToastMessage(`Cleared ${count} read notifications.`);
     setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleAcknowledgeBriefing = () => {
+    setIsBriefingAcknowledged(true);
+    setToastMessage('Daily Academic Briefing acknowledged and archived to ledger.');
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
   const getSnoozeTimeLabel = (mins: number) => {
@@ -108,11 +115,11 @@ export const SpatialNotificationPortal: React.FC = () => {
         <div>
           <div className="flex items-center space-x-2 mb-1">
             <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#1b1612] text-[#c9a45c] border border-[#c9a45c]/30 uppercase">
-              MODULE 7 // NOTIFICATION CENTER & SYSTEM AUDIT LEDGER
+              MODULE 9 // DAILY BRIEFINGS & NOTIFICATION INBOX
             </span>
           </div>
-          <h1 className="text-xl font-cinzel font-bold text-gold-foil tracking-wider">LETTERS, DISPATCHES & SYSTEM AUDIT LEDGER</h1>
-          <p className="text-xs text-[#9a9082] uppercase tracking-wider font-medium mt-0.5">Academic Alerts, Risk Factor Telemetry & Security Heartbeat</p>
+          <h1 className="text-xl font-cinzel font-bold text-gold-foil tracking-wider">DAILY BRIEFINGS & ACADEMIC NOTIFICATION INBOX</h1>
+          <p className="text-xs text-[#9a9082] uppercase tracking-wider font-medium mt-0.5">Morning Executive Summary, Risk Telemetry & Dispatch Ledger</p>
         </div>
 
         {/* Telemetry Stats */}
@@ -133,6 +140,78 @@ export const SpatialNotificationPortal: React.FC = () => {
           <span>{toastMessage}</span>
         </div>
       )}
+
+      {/* Daily Academic Briefing Hero Banner */}
+      <ParchmentCard className={`p-6 border transition-all ${isBriefingAcknowledged ? 'border-[#28211a] opacity-80' : 'border-[#c9a45c]/50 shadow-[0_0_20px_rgba(201,164,92,0.15)] bg-[#14100c]'}`}>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#28211a] pb-4 mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-[#1b1612] border border-[#c9a45c]/40 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-[#c9a45c]" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-[10px] font-bold text-[#c9a45c] uppercase tracking-wider">DAILY EXECUTIVE BRIEFING</span>
+                {isBriefingAcknowledged ? (
+                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#1b1612] text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <Check className="w-3 h-3 text-emerald-400" /> ACKNOWLEDGED
+                  </span>
+                ) : (
+                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#6b1d2f] text-[#f5ebe0] border border-[#c9a45c]/30 animate-pulse">
+                    PRIORITY ACTION REQUIRED
+                  </span>
+                )}
+              </div>
+              <h2 className="text-base font-cinzel font-bold text-[#f5ebe0] mt-0.5">Academic Morning Telemetry & Readiness Assessment</h2>
+            </div>
+          </div>
+
+          {!isBriefingAcknowledged && (
+            <button
+              onClick={handleAcknowledgeBriefing}
+              className="px-4 py-2 rounded-xl bg-[#6b1d2f] hover:bg-[#801c2e] text-[#f5ebe0] text-xs font-bold border border-[#c9a45c]/40 shadow-md transition-all flex items-center gap-2 shrink-0"
+            >
+              <CheckCircle2 className="w-4 h-4 text-[#c9a45c]" />
+              <span>Acknowledge Daily Briefing</span>
+            </button>
+          )}
+        </div>
+
+        {/* Briefing Highlights Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
+            <div className="flex justify-between items-center text-[10px] text-[#9a9082] font-bold uppercase">
+              <span className="flex items-center gap-1.5 text-[#c9a45c]">
+                <Clock className="w-3.5 h-3.5 text-[#c9a45c]" /> EXAM COUNTDOWN
+              </span>
+              <span className="text-[#f5ebe0]">IN 2 DAYS</span>
+            </div>
+            <p className="text-[#f5ebe0] font-bold text-sm">CS602 Midterm Exam</p>
+            <p className="text-[11px] text-[#9a9082]">Hall 4B • 10:00 AM • High Priority Study Focus</p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
+            <div className="flex justify-between items-center text-[10px] text-[#9a9082] font-bold uppercase">
+              <span className="flex items-center gap-1.5 text-[#6b1d2f]">
+                <AlertTriangle className="w-3.5 h-3.5 text-[#6b1d2f]" /> AT-RISK SUBJECT
+              </span>
+              <span className="text-[#6b1d2f] font-bold">WARNING</span>
+            </div>
+            <p className="text-[#f5ebe0] font-bold text-sm">CS604 Computer Networks</p>
+            <p className="text-[11px] text-[#9a9082]">Score: 68/100 • Target Next Exam: 82 marks to secure A grade</p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
+            <div className="flex justify-between items-center text-[10px] text-[#9a9082] font-bold uppercase">
+              <span className="flex items-center gap-1.5 text-emerald-400">
+                <BookOpen className="w-3.5 h-3.5 text-emerald-400" /> KNOWLEDGE INGESTION
+              </span>
+              <span className="text-emerald-400 font-bold">3 DECKS</span>
+            </div>
+            <p className="text-[#f5ebe0] font-bold text-sm">142 Vector Chunks Embedded</p>
+            <p className="text-[11px] text-[#9a9082]">CS601 & CS602 lecture slides indexed in AI library</p>
+          </div>
+        </div>
+      </ParchmentCard>
 
       {/* Filter Bar & Batch Action Controls */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -377,8 +456,3 @@ export const SpatialNotificationPortal: React.FC = () => {
     </div>
   );
 };
-
-
-
-
-
