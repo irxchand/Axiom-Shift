@@ -1,0 +1,21 @@
+{
+  "activeSemester": "Fall 2026",
+  "subjects": [
+    { "id": "sub_os", "name": "Operating Systems", "credits": 4 },
+    { "id": "sub_math", "name": "Calculus 3", "credits": 4 }
+  ],
+  "upcomingAssessments": [
+    { "id": "a1", "subjectId": "sub_os", "name": "Concurrency Midterm", "dueDate": "2026-07-31T10:00:00Z", "weightage": 0.3 }
+  ],
+  "currentMarks": {
+    "sub_os": { "obtained": 45, "max": 60 },
+    "sub_math": { "obtained": 20, "max": 50 }
+  },
+  "riskScores": [
+    { "subjectId": "sub_math", "severity": "CRITICAL", "drivers": ["Required average exceeds 90%"] },
+    { "subjectId": "sub_os", "severity": "WARNING", "drivers": ["Upcoming heavy assessment"] }
+  ],
+  "availableFreeWindows": [
+    { "startTime": "2026-07-30T14:00:00Z", "endTime": "2026-07-30T16:00:00Z" }
+  ]
+}

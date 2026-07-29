@@ -1,0 +1,44 @@
+{
+  "agents": [
+    {
+      "agentId": "master-orchestrator",
+      "displayName": "Demo Master Orchestrator",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/demo-master",
+      "promptVersion": "1.0.0-demo",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED"
+    },
+    {
+      "agentId": "initialization-agent",
+      "displayName": "Demo Initialization Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/demo-init",
+      "promptVersion": "1.0.0-demo",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED"
+    },
+    {
+      "agentId": "evaluation-agent",
+      "displayName": "Demo Evaluation Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/demo-eval",
+      "promptVersion": "1.0.0-demo",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED"
+    },
+    {
+      "agentId": "planning-agent",
+      "displayName": "Demo Planning Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/demo-planning",
+      "promptVersion": "1.0.0-demo",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED"
+    },
+    {
+      "agentId": "source-workspace-agent",
+      "displayName": "Demo Source Workspace Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/demo-source",
+      "promptVersion": "1.0.0-demo",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED"
+    }
+  ]
+}

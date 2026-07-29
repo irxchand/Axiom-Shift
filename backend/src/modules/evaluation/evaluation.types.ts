@@ -1,9 +1,20 @@
-export interface EvaluationComponentInput {
+export interface Assessment {
+  id: string;
   name: string;
-  weightPercent: number;
+  marksMax: number;
+  isCompleted: boolean;
+  weightage: number;
+  dueDate?: Date;
 }
 
-export interface EvaluationPlanInput {
+export interface RiskProfile {
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+  drivers: string[];
+}
+
+export interface SubjectState {
   subjectId: string;
-  components: EvaluationComponentInput[];
+  subjectName: string;
+  risk: RiskProfile;
+  assessments: Assessment[];
 }
