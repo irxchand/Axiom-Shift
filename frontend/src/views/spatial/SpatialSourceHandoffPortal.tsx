@@ -33,6 +33,7 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [customAnswers, setCustomAnswers] = useState<Record<string, string>>({});
   const [uploadToast, setUploadToast] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   if (isLoading) {
     return <ParchmentCard className="p-8 text-center text-xs text-gold-foil animate-pulse">Loading Source Document Telemetry & Ingestion Ledger...</ParchmentCard>;
@@ -73,8 +74,6 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
   });
 
   const totalVectors = allDocuments.reduce((acc, curr) => acc + (curr.vectorsGenerated || 0), 0);
-
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);

@@ -1,23 +1,15 @@
-export interface TimeWindow {
-  startTime: Date;
-  endTime: Date;
-}
-
-export interface StudyTask {
-  taskId: string;
-  subjectId: string;
+export interface StudyTaskInput {
+  subjectId?: string | null;
   title: string;
-  estimatedMinutes: number;
   reason: string;
+  evidenceRefs?: any[];
+  startAt: string | Date;
+  endAt: string | Date;
 }
 
-export interface StudyBlock {
-  taskId: string;
-  window: TimeWindow;
-}
-
-export interface PlanningContext {
-  freeWindows: TimeWindow[];
-  existingClasses: TimeWindow[];
-  tasks: StudyTask[];
+export interface PlanGenerationRequest {
+  userId: string;
+  semesterId: string;
+  title?: string;
+  tasks: StudyTaskInput[];
 }

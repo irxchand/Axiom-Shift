@@ -1,0 +1,24 @@
+{
+  "site_id": "chatgpt",
+  "base_url": "https://chatgpt.com",
+  "selectors": {
+    "chat_input": "div[id='prompt-textarea']",
+    "send_button": "button[data-testid='send-button']",
+    "response_container": "div[data-message-author-role='assistant']",
+    "generating_indicator": "button[data-testid='stop-button']",
+    "sidebar": {
+      "new_chat_button": "text='New chat'",
+      "search_button": "button:has([class*='icon-search'])",
+      "search_input": "input[placeholder*='Search']",
+      "search_results": "a[href^='/c/']"
+    }
+  },
+  "timing": {
+    "typing_delay_ms": [30, 90],
+    "initial_wait_before_check_ms": 2500,
+    "stability_check_interval_ms": 1000,
+    "stability_required_checks": 2,
+    "max_wait_ms": 90000
+  },
+  "completion_strategy": "generating_indicator_gone_and_text_stable"
+}
