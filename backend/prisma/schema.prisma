@@ -1,6 +1,5 @@
-// Phase 0: infrastructure only.
-// Do NOT add product models here yet (users, semesters, subjects, etc).
-// Those land in Phase 2 (Backend State Backbone) per Person_4_Backend_Infrastructure_SDD.md.
+// Phase 0 kept this file to datasource/generator only.
+// Phase 2 adds the state-backbone tables; Phase 4 adds evaluation/marks/risk.
 
 generator client {
   provider = "prisma-client-js"
@@ -9,4 +8,331 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Phase 2: Backend State Backbone
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  profile   StudentProfile?
+  state     SemesterOperationsState?
+  semesters Semester[]
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model StudentProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName String?
+  timezone    String   @default("Asia/Kolkata")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("student_profiles")
+}
+
+// Cached/compiled projection of a user's current operational state.
+// Naming rule: SemesterOperationsState, never "twin".
+model SemesterOperationsState {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activeSemesterId String?
+  summary          Json
+  computedAt       DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("semester_operations_states")
+}
+
+model Semester {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  timezone  String   @default("Asia/Kolkata")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subjects       Subject[]
+  calendarEvents CalendarEvent[]
+
+  @@index([userId])
+  @@map("semesters")
+}
+
+model Subject {
+  id         String   @id @default(uuid())
+  semesterId String
+  semester   Semester @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  userId     String
+  code       String
+  name       String
+  credits    Float?
+  color      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  calendarEvents   CalendarEvent[]
+  sourceWorkspaces SourceWorkspace[]
+  evaluationPlan   EvaluationPlan?
+  assessments      Assessment[]
+  riskScore        RiskScore?
+
+  @@unique([semesterId, code])
+  @@index([userId])
+  @@map("subjects")
+}
+
+enum Weekday {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum SessionType {
+  LECTURE
+  LAB
+  TUTORIAL
+  OTHER
+}
+
+enum CalendarEventKind {
+  RECURRING_CLASS
+  ONE_OFF
+}
+
+// Holds BOTH recurring weekly timetable entries and one-off calendar events.
+model CalendarEvent {
+  id          String            @id @default(uuid())
+  userId      String
+  semesterId  String
+  semester    Semester          @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  subjectId   String?
+  subject     Subject?          @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  kind        CalendarEventKind
+  title       String
+  sessionType SessionType       @default(OTHER)
+  location    String?
+
+  // RECURRING_CLASS fields
+  dayOfWeek Weekday?
+  startTime String? // HH:MM, 24h, in semester timezone
+  endTime   String?
+
+  // ONE_OFF fields
+  startAt DateTime?
+  endAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([semesterId])
+  @@index([subjectId])
+  @@map("calendar_events")
+}
+
+model SourceWorkspace {
+  id           String    @id @default(uuid())
+  userId       String
+  subjectId    String
+  subject      Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  status       String    @default("NOT_CONNECTED")
+  lastSyncedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  documentHandoffs DocumentHandoff[]
+
+  @@index([userId])
+  @@index([subjectId])
+  @@map("source_workspaces")
+}
+
+// Transient handoff metadata ONLY. Never store parsed text/chunks/embeddings here.
+model DocumentHandoff {
+  id            String           @id @default(uuid())
+  userId        String
+  workspaceId   String?
+  workspace     SourceWorkspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  status        String           @default("PENDING")
+  filename      String?
+  fileSizeBytes Int?
+  errorMessage  String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  @@index([userId])
+  @@index([workspaceId])
+  @@map("document_handoffs")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("audit_logs")
+}
+
+model OutboxEvent {
+  id          String    @id @default(uuid())
+  eventType   String
+  payload     Json
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([processedAt])
+  @@map("outbox_events")
+}
+
+// Durable idempotency store for write endpoints (Idempotency-Key header).
+model IdempotencyKey {
+  id           String   @id @default(uuid())
+  userId       String
+  key          String
+  route        String
+  statusCode   Int
+  responseBody Json
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, key, route])
+  @@map("idempotency_keys")
+}
+
+// ---------------------------------------------------------------------------
+// Phase 4: Evaluation, Marks, GPA, and Risk
+// ---------------------------------------------------------------------------
+
+model EvaluationPlan {
+  id        String   @id @default(uuid())
+  userId    String
+  subjectId String   @unique
+  subject   Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  components EvaluationComponent[]
+
+  @@index([userId])
+  @@map("evaluation_plans")
+}
+
+model EvaluationComponent {
+  id               String         @id @default(uuid())
+  evaluationPlanId String
+  evaluationPlan   EvaluationPlan @relation(fields: [evaluationPlanId], references: [id], onDelete: Cascade)
+  name             String
+  weightPercent    Float
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  assessments Assessment[]
+
+  @@index([evaluationPlanId])
+  @@map("evaluation_components")
+}
+
+model Assessment {
+  id                    String              @id @default(uuid())
+  userId                String
+  subjectId             String
+  subject               Subject             @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  evaluationComponentId String
+  evaluationComponent   EvaluationComponent @relation(fields: [evaluationComponentId], references: [id], onDelete: Cascade)
+  title                 String
+  dueDate               DateTime?
+  maxMarks              Float
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  marks Mark?
+
+  @@index([userId])
+  @@index([subjectId])
+  @@index([evaluationComponentId])
+  @@map("assessments")
+}
+
+model Mark {
+  id            String     @id @default(uuid())
+  assessmentId  String     @unique
+  assessment    Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  userId        String
+  obtainedMarks Float?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([userId])
+  @@map("marks")
+}
+
+model Goal {
+  id            String   @id @default(uuid())
+  userId        String
+  subjectId     String
+  targetPercent Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([subjectId])
+  @@map("goals")
+}
+
+enum RiskSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model RiskScore {
+  id          String       @id @default(uuid())
+  userId      String
+  subjectId   String       @unique
+  subject     Subject      @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  severity    RiskSeverity
+  score       Float
+  drivers     Json
+  recommended Json
+  computedAt  DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([userId])
+  @@map("risk_scores")
+}
+
+model Prediction {
+  id          String   @id @default(uuid())
+  userId      String
+  subjectId   String
+  requiredAvg Float
+  scenario    Json
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([subjectId])
+  @@map("predictions")
 }
