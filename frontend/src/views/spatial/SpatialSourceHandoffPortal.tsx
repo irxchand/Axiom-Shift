@@ -96,16 +96,13 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
             </span>
           </div>
           <h1 className="text-xl font-cinzel font-bold text-gold-foil tracking-wider">MANUSCRIPT & DOCUMENT INGESTION PORTAL</h1>
-          <p className="text-xs text-[#9a9082] uppercase tracking-wider font-medium mt-0.5">Course File Handoff, Knowledge Vector Chunk Telemetry & Route Parsing</p>
+          <p className="text-xs text-[#9a9082] uppercase tracking-wider font-medium mt-0.5">Course File Handoff, Document Processing & Route Parsing</p>
         </div>
 
         {/* Telemetry Summary Stats */}
         <div className="flex items-center space-x-3 text-xs">
           <div className="px-3.5 py-1.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] text-[#f5ebe0]">
-            INGESTED DOCUMENTS: <strong className="text-[#c9a45c] font-bold">{apiDocuments.length}</strong>
-          </div>
-          <div className="px-3.5 py-1.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] text-[#f5ebe0]">
-            KNOWLEDGE VECTORS: <strong className="text-emerald-400 font-bold">{totalVectors}</strong>
+            INGESTED MANUSCRIPTS: <strong className="text-[#c9a45c] font-bold">{apiDocuments.length}</strong>
           </div>
         </div>
       </div>
@@ -125,7 +122,7 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
               <Upload className="w-4 h-4 text-[#c9a45c]" />
               <span>DEPOSIT COURSE MANUSCRIPT OR LECTURE SLIDES</span>
             </h3>
-            <p className="text-[11px] text-[#9a9082] mt-0.5">Supports PDF, PPTX, DOCX, and TXT files for AI Vector Chunk Ingestion.</p>
+            <p className="text-[11px] text-[#9a9082] mt-0.5">Supports PDF, PPTX, DOCX, and TXT files for Document Ingestion.</p>
           </div>
 
           <div className="flex items-center space-x-2 text-xs">
@@ -157,7 +154,7 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
           </div>
           <div>
             <h4 className="text-sm font-bold text-[#f5ebe0]">DRAG & DROP MANUSCRIPT FILES HERE</h4>
-            <p className="text-xs text-[#9a9082] mt-0.5">PDF, PPTX, DOCX // Files are parsed into vector chunks and linked to course modules</p>
+            <p className="text-xs text-[#9a9082] mt-0.5">PDF, PPTX, DOCX // Files are parsed and linked to course modules</p>
           </div>
 
           <label className="px-5 py-2.5 rounded-xl bg-[#6b1d2f] hover:bg-[#801c2e] text-[#f5ebe0] font-semibold text-xs border border-[#c9a45c]/40 cursor-pointer shadow-md flex items-center gap-2 transition-all">
@@ -203,7 +200,7 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
         <div className="flex justify-between items-center border-b border-[#28211a] pb-3">
           <h3 className="text-sm font-bold text-[#f5ebe0] font-cinzel flex items-center gap-2">
             <Database className="w-4 h-4 text-[#c9a45c]" />
-            <span>INGESTED MANUSCRIPTS & VECTOR CHUNKS LEDGER</span>
+            <span>INGESTED MANUSCRIPTS LEDGER</span>
           </h3>
           <button
             onClick={handleRefresh}
@@ -252,9 +249,9 @@ export const SpatialSourceHandoffPortal: React.FC = () => {
                 <div className="pt-2 border-t border-[#28211a]/60 flex justify-between items-center text-xs text-[#9a9082]">
                   <span className="flex items-center gap-1.5 font-medium text-[#c9a45c]">
                     <Cpu className="w-3.5 h-3.5" />
-                    <strong>{doc.vectorsGenerated || 0} AI Vector Chunks</strong> generated & indexed
+                    <strong>Parsed & Linked to {doc.targetDestination || 'Course Library'}</strong>
                   </span>
-                  <span className="text-[10px] text-[#9a9082]">100% Parsed</span>
+                  <span className="text-[10px] text-[#9a9082]">100% Ingested</span>
                 </div>
               </div>
             ))

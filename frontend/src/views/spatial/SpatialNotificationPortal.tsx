@@ -177,16 +177,16 @@ export const SpatialNotificationPortal: React.FC = () => {
         </div>
 
         {/* Briefing Highlights Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
             <div className="flex justify-between items-center text-[10px] text-[#9a9082] font-bold uppercase">
               <span className="flex items-center gap-1.5 text-[#c9a45c]">
                 <Clock className="w-3.5 h-3.5 text-[#c9a45c]" /> EXAM COUNTDOWN
               </span>
-              <span className="text-[#f5ebe0]">IN 2 DAYS</span>
+              <span className="text-[#c9a45c] font-bold">2 DAYS LEFT</span>
             </div>
             <p className="text-[#f5ebe0] font-bold text-sm">CS602 Midterm Exam</p>
-            <p className="text-[11px] text-[#9a9082]">Hall 4B • 10:00 AM • High Priority Study Focus</p>
+            <p className="text-[11px] text-[#9a9082]">Friday • 10:00 AM • Main Exam Hall 4B</p>
           </div>
 
           <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
@@ -198,17 +198,6 @@ export const SpatialNotificationPortal: React.FC = () => {
             </div>
             <p className="text-[#f5ebe0] font-bold text-sm">CS604 Computer Networks</p>
             <p className="text-[11px] text-[#9a9082]">Score: 68/100 • Target Next Exam: 82 marks to secure A grade</p>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#28211a] space-y-1.5">
-            <div className="flex justify-between items-center text-[10px] text-[#9a9082] font-bold uppercase">
-              <span className="flex items-center gap-1.5 text-emerald-400">
-                <BookOpen className="w-3.5 h-3.5 text-emerald-400" /> KNOWLEDGE INGESTION
-              </span>
-              <span className="text-emerald-400 font-bold">3 DECKS</span>
-            </div>
-            <p className="text-[#f5ebe0] font-bold text-sm">142 Vector Chunks Embedded</p>
-            <p className="text-[11px] text-[#9a9082]">CS601 & CS602 lecture slides indexed in AI library</p>
           </div>
         </div>
       </ParchmentCard>
