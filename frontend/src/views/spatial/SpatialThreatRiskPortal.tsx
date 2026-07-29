@@ -18,6 +18,11 @@ export const SpatialThreatRiskPortal: React.FC = () => {
   const [selectedSubject, setSelectedSubject] = useState<string>('CS601');
   const [simulatedExamScore, setSimulatedExamScore] = useState<number>(85);
 
+  const { data: sgpaData } = useQuery({
+    queryKey: ['sgpaScenarios', selectedSubject, simulatedExamScore],
+    queryFn: () => backendAPI.getSgpaScenarios(selectedSubject, simulatedExamScore)
+  });
+
   if (isLoadingRisk || isLoadingGrades) {
     return <ParchmentCard className="p-8 text-center text-xs text-gold-foil animate-pulse">Loading Academic Standing & Evaluation Records...</ParchmentCard>;
   }
@@ -187,13 +192,9 @@ export const SpatialThreatRiskPortal: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-[#0f0c0a] border border-[#c9a45c]/40 text-center space-y-1">
             <span className="text-[10px] text-[#9a9082] font-bold block uppercase">PREDICTED RESULTING GRADE</span>
             <span className="text-xl font-black text-[#c9a45c] font-cinzel block">
-              {simulatedExamScore >= 90
-                ? 'GRADE O (Outstanding)'
-                : simulatedExamScore >= 80
-                ? 'GRADE A+ (Excellent)'
-                : simulatedExamScore >= 70
-                ? 'GRADE A (Very Good)'
-                : 'GRADE B+ (Good)'}
+              {sgpaData?.scenario?.subjectGrades?.[selectedSubject]?.grade 
+                ? `GRADE ${sgpaData.scenario.subjectGrades[selectedSubject].grade}`
+                : (simulatedExamScore >= 90 ? 'GRADE O' : simulatedExamScore >= 80 ? 'GRADE A+' : simulatedExamScore >= 70 ? 'GRADE A' : 'GRADE B+')}
             </span>
           </div>
         </div>
