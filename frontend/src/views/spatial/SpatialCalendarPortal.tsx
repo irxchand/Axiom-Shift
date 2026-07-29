@@ -439,18 +439,29 @@ export const SpatialCalendarPortal: React.FC = () => {
               {/* Days Header Row */}
               <div className="grid grid-cols-8 gap-2 text-center border-b border-[#28211a] pb-2 text-xs font-bold font-cinzel">
                 <div className="text-[#9a9082] text-left">TIME</div>
-                {weekDays.map(wd => (
-                  <div
-                    key={wd.dateStr}
-                    onClick={() => setSelectedDateStr(wd.dateStr)}
-                    className={`p-2 rounded-xl cursor-pointer transition-all ${
-                      wd.dateStr === '2026-07-28' ? 'bg-[#6b1d2f] text-[#f5ebe0]' : 'bg-[#0f0c0a] text-[#c9a45c] border border-[#28211a]'
-                    }`}
-                  >
-                    <span>{wd.name}</span>
-                    <span className="block text-[10px] opacity-80">{wd.dayNum}</span>
-                  </div>
-                ))}
+                {weekDays.map(wd => {
+                  const isSelected = wd.dateStr === selectedDateStr;
+                  const isToday = wd.dateStr === '2026-07-28';
+                  return (
+                    <div
+                      key={wd.dateStr}
+                      onClick={() => setSelectedDateStr(wd.dateStr)}
+                      className={`p-2 rounded-xl cursor-pointer transition-all ${
+                        isSelected
+                          ? 'bg-[#6b1d2f] text-[#f5ebe0] border border-[#c9a45c] shadow-[0_0_12px_rgba(201,164,92,0.3)]'
+                          : isToday
+                          ? 'bg-[#18130f] text-[#c9a45c] border border-[#6b1d2f]'
+                          : 'bg-[#0f0c0a] text-[#9a9082] border border-[#28211a] hover:border-[#c9a45c]/40 hover:text-[#f5ebe0]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        <span>{wd.name}</span>
+                        {isToday && <span className="w-1.5 h-1.5 rounded-full bg-[#c9a45c]" title="Today" />}
+                      </div>
+                      <span className="block text-[10px] opacity-90">{wd.dayNum}</span>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Time Slots Rows */}
@@ -459,14 +470,26 @@ export const SpatialCalendarPortal: React.FC = () => {
                   <div className="text-[10px] font-bold text-[#9a9082]">{time}</div>
                   {weekDays.map(wd => {
                     const matchedEvents = filteredEvents.filter(e => e.date === wd.dateStr);
+                    const isSelected = wd.dateStr === selectedDateStr;
+
                     return (
-                      <div key={wd.dateStr} className="min-h-[45px] p-1 rounded-lg bg-[#0f0c0a]/60 border border-[#28211a]/50 flex flex-col justify-center">
+                      <div
+                        key={wd.dateStr}
+                        onClick={() => setSelectedDateStr(wd.dateStr)}
+                        className={`min-h-[45px] p-1 rounded-lg transition-all cursor-pointer flex flex-col justify-center ${
+                          isSelected
+                            ? 'bg-[#1b1612] border border-[#c9a45c]/60'
+                            : 'bg-[#0f0c0a]/60 border border-[#28211a]/50 hover:border-[#c9a45c]/30'
+                        }`}
+                      >
                         {matchedEvents.map(evt => {
-                          const cd = getCountdownBadge(evt.date);
                           return (
                             <div
                               key={evt.id}
-                              onClick={() => setSelectedDateStr(evt.date)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedDateStr(evt.date);
+                              }}
                               className={`p-1.5 rounded text-[9px] font-bold space-y-0.5 cursor-pointer ${getEventTypeBadgeClass(evt.eventType)}`}
                             >
                               <div className="flex justify-between items-center">

@@ -1,96 +1,305 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUIStore } from '../../store/useUIStore';
+import { BookOpen, Sparkles, Flame, Clock, Bookmark, ArrowRight, Sun, Feather, Coffee } from 'lucide-react';
 
 export const CinematicBootSequence: React.FC = () => {
   const { hasBooted, setHasBooted } = useUIStore();
-  const [progress, setProgress] = useState(0);
-  const [stageText, setStageText] = useState('INITIALIZING ACADEMIC ENGINE...');
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isLaunching, setIsLaunching] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  // Reset launch state when hasBooted turns false
+  useEffect(() => {
+    if (!hasBooted) {
+      setIsLaunching(false);
+    }
+  }, [hasBooted]);
+
+  const handleNavClick = (path: string) => {
+    setHasBooted(true);
+    navigate(path);
+  };
+
+  // Mouse Parallax Effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 2;
+      const y = (e.clientY / innerHeight - 0.5) * 2;
+      setMousePos({ x, y });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // 2D Volumetric Light & Dust Motes Canvas
+  useEffect(() => {
+    if (hasBooted) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Generate Floating Dust Particles
+    const dustParticles = Array.from({ length: 75 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 2 + 0.5,
+      speedX: (Math.random() - 0.5) * 0.3,
+      speedY: -Math.random() * 0.4 - 0.1,
+      alpha: Math.random() * 0.6 + 0.2
+    }));
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Render Warm Volumetric Sunbeam Ray from Top-Left Window
+      const rayGradient = ctx.createLinearGradient(0, 0, width * 0.7, height * 0.8);
+      rayGradient.addColorStop(0, 'rgba(238, 204, 150, 0.08)');
+      rayGradient.addColorStop(0.5, 'rgba(201, 169, 110, 0.03)');
+      rayGradient.addColorStop(1, 'rgba(10, 10, 11, 0)');
+
+      ctx.fillStyle = rayGradient;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(width * 0.6, 0);
+      ctx.lineTo(width * 0.8, height);
+      ctx.lineTo(0, height * 0.7);
+      ctx.closePath();
+      ctx.fill();
+
+      // Render Floating Dust Particles Drifting in Light Beam
+      dustParticles.forEach((p) => {
+        p.x += p.speedX + mousePos.x * 0.1;
+        p.y += p.speedY + mousePos.y * 0.1;
+
+        if (p.y < 0) {
+          p.y = height;
+          p.x = Math.random() * width;
+        }
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+
+        ctx.fillStyle = `rgba(238, 215, 175, ${p.alpha * 0.7})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [hasBooted, mousePos]);
+
+  // Keyboard Launch Event Listener
   useEffect(() => {
     if (hasBooted) return;
 
-    setProgress(0);
-    setIsOpen(false);
-    setStageText('INITIALIZING ACADEMIC ENGINE...');
-
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-
-        const next = prev + 10;
-        if (next === 30) setStageText('LOADING SEMESTER CHRONICLE...');
-        else if (next === 60) setStageText('SYNCHRONIZING COURSE INTELLIGENCE...');
-        else if (next === 90) setStageText('ACADEMIC DASHBOARD READY.');
-
-        return next;
-      });
-    }, 80);
-
-    return () => clearInterval(interval);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleStart();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [hasBooted]);
 
-  const handleOpenBook = () => {
-    setIsOpen(true);
+  const handleStart = () => {
+    setIsLaunching(true);
     setTimeout(() => {
       setHasBooted(true);
-    }, 400);
+    }, 600);
   };
-
 
   if (hasBooted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b0806] p-6 select-none overflow-hidden font-sans">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(107,29,47,0.3)_0%,rgba(11,8,6,0.98)_80%)] pointer-events-none" />
+    <div className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0A0A0B] text-[#F5EBE0] select-none overflow-hidden font-sans">
+      {/* Volumetric Light & Dust Motes Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" />
 
+      {/* Atmospheric Ambient Lighting & Lamp Glow */}
       <div
-        className={`w-full max-w-md transition-all duration-500 transform ${
-          isOpen ? 'scale-105 opacity-0 -translate-y-8' : 'scale-100 opacity-100'
-        }`}
+        className="absolute top-10 left-16 w-[550px] h-[550px] rounded-full bg-[#C9A96E]/12 blur-[170px] pointer-events-none transition-transform duration-1000"
+        style={{ transform: `translate(${mousePos.x * -30}px, ${mousePos.y * -30}px)` }}
+      />
+      <div
+        className="absolute bottom-10 right-20 w-[600px] h-[600px] rounded-full bg-[#3D2C1E]/40 blur-[180px] pointer-events-none transition-transform duration-1000"
+        style={{ transform: `translate(${mousePos.x * 30}px, ${mousePos.y * 30}px)` }}
+      />
+
+      {/* Background Walnut Wood Surface Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(40,30,22,0.4)_0%,rgba(10,10,11,0.98)_75%)] pointer-events-none" />
+
+      {/* TOP EDITORIAL NAVIGATION BAR */}
+      <header className="relative z-20 w-full max-w-6xl mx-auto px-6 py-6 flex justify-between items-center border-b border-[#28211a]/40">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 rounded-xl bg-[#1d1611] border border-[#c9a96e]/30 flex items-center justify-center shadow-md">
+            <Feather className="w-4 h-4 text-[#c9a96e]" />
+          </div>
+          <span className="font-cinzel text-xl font-bold tracking-widest text-[#f5ebe0]">
+            SEMESTRIA
+          </span>
+        </div>
+
+        <nav className="hidden md:flex items-center space-x-8 text-xs text-[#a39788] tracking-wider uppercase font-medium">
+          <span onClick={() => handleNavClick('/')} className="hover:text-[#c9a96e] transition-colors cursor-pointer">Overview</span>
+          <span onClick={() => handleNavClick('/timetable')} className="hover:text-[#c9a96e] transition-colors cursor-pointer">Timetable</span>
+          <span onClick={() => handleNavClick('/subjects')} className="hover:text-[#c9a96e] transition-colors cursor-pointer">Subjects</span>
+          <span onClick={() => handleNavClick('/evaluations')} className="hover:text-[#c9a96e] transition-colors cursor-pointer">Analytics</span>
+          <span onClick={() => handleNavClick('/planner')} className="hover:text-[#c9a96e] transition-colors cursor-pointer">Planner</span>
+        </nav>
+
+        <div className="flex items-center space-x-2 text-xs text-[#c9a96e] font-mono">
+          <Sun className="w-3.5 h-3.5 text-[#c9a96e]/70" />
+          <span>AUTUMN ACADEMIC TERM</span>
+        </div>
+      </header>
+
+      {/* FLOATING STUDY CARDS - LEFT SIDE */}
+      <div
+        className="hidden lg:flex flex-col space-y-4 absolute left-12 top-1/2 -translate-y-1/2 w-64 p-5 rounded-2xl bg-[#16110c]/50 border border-[#28211a] backdrop-blur-xl shadow-2xl z-10 transition-transform duration-700 pointer-events-none"
+        style={{ transform: `translateY(-50%) translate(${mousePos.x * -12}px, ${mousePos.y * -12}px)` }}
       >
-        {/* Modern Card Frame */}
-        <div className="modern-card p-8 rounded-2xl border border-[#28211a] shadow-[0_25px_60px_rgba(0,0,0,0.95)] space-y-6 text-center">
-          
-          <div className="space-y-1">
-            <h1 className="text-2xl font-cinzel font-bold text-gold-foil tracking-widest uppercase">
-              SEMESTRIA
-            </h1>
-            <p className="text-xs text-[#9a9082] tracking-wider uppercase font-medium">
-              STUDENT PRODUCTIVITY APPLICATION
-            </p>
+        <div className="flex justify-between items-center border-b border-[#28211a] pb-2.5">
+          <span className="text-[10px] font-bold text-[#c9a96e] uppercase tracking-wider flex items-center gap-1.5 font-cinzel">
+            <BookOpen className="w-3.5 h-3.5 text-[#c9a96e]" /> TODAY'S READING
+          </span>
+          <span className="text-[10px] text-[#a39788]">PG. 142</span>
+        </div>
+
+        <div className="space-y-2 text-xs">
+          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] space-y-1">
+            <span className="text-[#a39788] text-[10px] uppercase block font-medium">CS602 // ALGORITHMS</span>
+            <p className="font-cinzel font-semibold text-[#f5ebe0] text-xs">Chapter 4: Neural Architectures</p>
           </div>
 
-          {/* Progress / Open Action */}
-          <div className="space-y-3 pt-4 border-t border-[#28211a]">
-            <p className="text-xs text-[#d8cebe] font-medium tracking-wide">
-              {stageText}
-            </p>
-
-            <div className="w-full h-2 bg-[#0f0c0a] rounded-full overflow-hidden border border-[#28211a] p-0.5">
-              <div
-                className="h-full bg-gradient-to-r from-[#6b1d2f] via-[#c9a45c] to-[#d4af37] rounded-full transition-all duration-150"
-                style={{ width: `${progress}%` }}
-              />
+          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] flex justify-between items-center">
+            <div>
+              <span className="text-[#a39788] text-[10px] block uppercase">FOCUS SESSION</span>
+              <span className="font-mono text-[#c9a96e] text-xs font-bold">45 MIN REMAINING</span>
             </div>
-            
-            <p className="text-[10px] text-[#9a9082]">{progress}% INDEXED</p>
-
-            {progress >= 100 && (
-              <button
-                onClick={handleOpenBook}
-                className="w-full mt-2 py-3 px-6 rounded-xl bg-[#6b1d2f] hover:bg-[#801c2e] text-[#f5ebe0] font-sans font-semibold text-xs tracking-wider border border-[#c9a45c]/40 transition-all shadow-lg flex items-center justify-center space-x-2 transform hover:scale-[1.01]"
-              >
-                <span>OPEN DASHBOARD</span>
-              </button>
-            )}
+            <Clock className="w-4 h-4 text-[#c9a96e]" />
           </div>
         </div>
       </div>
+
+      {/* FLOATING STUDY CARDS - RIGHT SIDE */}
+      <div
+        className="hidden lg:flex flex-col space-y-4 absolute right-12 top-1/2 -translate-y-1/2 w-64 p-5 rounded-2xl bg-[#16110c]/50 border border-[#28211a] backdrop-blur-xl shadow-2xl z-10 transition-transform duration-700 pointer-events-none"
+        style={{ transform: `translateY(-50%) translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}
+      >
+        <div className="flex justify-between items-center border-b border-[#28211a] pb-2.5">
+          <span className="text-[10px] font-bold text-[#c9a96e] uppercase tracking-wider flex items-center gap-1.5 font-cinzel">
+            <Flame className="w-3.5 h-3.5 text-amber-500" /> STUDY STREAK
+          </span>
+          <span className="text-[10px] font-bold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">14 DAYS</span>
+        </div>
+
+        <div className="space-y-2 text-xs">
+          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] space-y-1">
+            <span className="text-[#a39788] text-[10px] uppercase block font-medium">QUOTE OF THE DAY</span>
+            <p className="italic text-[#d8cebe] text-[11px] font-serif">
+              "Knowledge is the only treasure that expands when shared."
+            </p>
+          </div>
+
+          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] flex justify-between items-center">
+            <div>
+              <span className="text-[#a39788] text-[10px] block uppercase">WEEKLY GOALS</span>
+              <span className="text-[#f5ebe0] text-xs font-bold">4 of 5 Chapters Mastered</span>
+            </div>
+            <Bookmark className="w-4 h-4 text-[#c9a96e]" />
+          </div>
+        </div>
+      </div>
+
+      {/* HERO SECTION: OPEN BOOK LEATHER JOURNAL EXPERIENCE */}
+      <main className="relative z-20 max-w-2xl mx-auto text-center my-auto px-6 py-8">
+        <div
+          className={`transition-all duration-700 transform ${
+            isLaunching ? 'scale-105 opacity-0 -translate-y-12 blur-sm' : 'scale-100 opacity-100'
+          }`}
+          style={{
+            transform: `perspective(1000px) rotateX(${mousePos.y * -3}deg) rotateY(${mousePos.x * 3}deg)`
+          }}
+        >
+          {/* Frosted Open Book Glass Container */}
+          <div className="relative rounded-3xl p-10 bg-[#140e0a]/75 backdrop-blur-[24px] border border-[#c9a96e]/30 shadow-[0_30px_90px_rgba(0,0,0,0.95)] space-y-8 overflow-hidden group">
+            {/* Subtle Gold Foil Moving Border Highlight */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-[#c9a96e]/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none duration-1000" />
+
+            {/* Subtitle Badge */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#1e1610] border border-[#c9a96e]/30">
+              <Sparkles className="w-3.5 h-3.5 text-[#c9a96e]" />
+              <span className="text-[11px] text-[#c9a96e] font-cinzel font-semibold tracking-wider uppercase">
+                Your Intelligent Semester Workspace
+              </span>
+            </div>
+
+            {/* Luxury Editorial Headline */}
+            <div className="space-y-3">
+              <h1 className="text-4xl sm:text-5xl font-cinzel font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f5ebe0] via-[#e8d7c3] to-[#c9a96e] leading-tight">
+                Study Smarter.<br />
+                Achieve More.
+              </h1>
+              <p className="text-lg font-serif italic text-[#c9a96e]/90 font-normal">
+                One Beautiful Workspace.
+              </p>
+            </div>
+
+            {/* Editorial Subtext */}
+            <p className="text-xs sm:text-sm text-[#a39788] max-w-md mx-auto leading-relaxed font-sans">
+              Organise your subjects. Track your academic progress. Plan your semester. Stay focused. Everything integrated in one serene environment.
+            </p>
+
+            {/* Premium CTA Button */}
+            <div className="pt-3">
+              <button
+                onClick={handleStart}
+                className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-[#2c2016] via-[#3a2c1f] to-[#2c2016] hover:from-[#3a2c1f] hover:to-[#4a3928] text-[#f5ebe0] font-cinzel font-bold text-xs tracking-widest border border-[#c9a96e]/50 shadow-[0_10px_35px_rgba(201,169,110,0.2)] transition-all duration-300 flex items-center justify-center space-x-3 mx-auto transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+              >
+                <span>OPEN DASHBOARD</span>
+                <ArrowRight className="w-4 h-4 text-[#c9a96e] transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+
+            {/* Keyboard Hint */}
+            <p className="text-[10px] text-[#857868] font-mono pt-2">
+              Press <kbd className="px-1.5 py-0.5 rounded bg-[#1d1611] text-[#c9a96e] border border-[#28211a]">ENTER</kbd> or <kbd className="px-1.5 py-0.5 rounded bg-[#1d1611] text-[#c9a96e] border border-[#28211a]">SPACE</kbd> to launch
+            </p>
+          </div>
+        </div>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="relative z-20 w-full max-w-6xl mx-auto px-6 py-6 border-t border-[#28211a]/40 flex justify-between items-center text-[10px] text-[#857868]">
+        <div className="flex items-center space-x-2">
+          <Coffee className="w-3.5 h-3.5 text-[#c9a96e]" />
+          <span>CRAFTED FOR FOCUSED LEARNING</span>
+        </div>
+        <span className="font-cinzel tracking-wider text-[#c9a96e]">SEMESTRIA ACADEMIC EDITION</span>
+      </footer>
     </div>
   );
 };
