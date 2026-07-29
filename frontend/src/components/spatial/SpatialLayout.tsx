@@ -24,7 +24,7 @@ export const SpatialLayout: React.FC = () => {
         onSelectSubject={handleSelectSubject}
       />
 
-      {/* Cinematic Boot Sequence Startup */}
+      {/* Official Dark Academia Landing Screen */}
       <CinematicBootSequence />
 
       {/* Main Spatial Stage Overlay */}
