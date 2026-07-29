@@ -1,5 +1,7 @@
 // Phase 0 kept this file to datasource/generator only.
 // Phase 2 adds the state-backbone tables; Phase 4 adds evaluation/marks/risk.
+// Phase 6 extends SourceWorkspace & DocumentHandoff.
+// Phase 7 adds AgentRun; Phase 8 adds StudyPlan & StudyTask.
 
 generator client {
   provider = "prisma-client-js"
@@ -11,7 +13,7 @@ datasource db {
 }
 
 // ---------------------------------------------------------------------------
-// Phase 2: Backend State Backbone
+// Phase 2 & Phase 6/7/8 Extended: Backend State Backbone
 // ---------------------------------------------------------------------------
 
 model User {
@@ -21,14 +23,19 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  profile   StudentProfile?
-  state     SemesterOperationsState?
-  semesters Semester[]
-  auditLogs AuditLog[]
+  profile          StudentProfile?
+  state            SemesterOperationsState?
+  semesters        Semester[]
+  auditLogs        AuditLog[]
+  sourceWorkspaces SourceWorkspace[]
+  documentHandoffs DocumentHandoff[]
+  agentRuns        AgentRun[]
+  studyPlans       StudyPlan[]
+
+  notifications Notification[]   // <-- ADD THIS
 
   @@map("users")
 }
-
 model StudentProfile {
   id          String   @id @default(uuid())
   userId      String   @unique
@@ -87,9 +94,11 @@ model Subject {
 
   calendarEvents   CalendarEvent[]
   sourceWorkspaces SourceWorkspace[]
+  documentHandoffs DocumentHandoff[]
   evaluationPlan   EvaluationPlan?
   assessments      Assessment[]
   riskScore        RiskScore?
+  studyTasks       StudyTask[]
 
   @@unique([semesterId, code])
   @@index([userId])
@@ -140,6 +149,12 @@ model CalendarEvent {
   startAt DateTime?
   endAt   DateTime?
 
+  // Extended for Phase 8 planning integration
+  eventType String?  @default("CLASS") // e.g., "STUDY_SESSION", "CLASS"
+  source    String?  @default("TIMETABLE")
+  status    String?  @default("SCHEDULED")
+  metadata  Json?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -149,18 +164,37 @@ model CalendarEvent {
   @@map("calendar_events")
 }
 
+// ---------------------------------------------------------------------------
+// Phase 6: Extended Source Workspaces & Staging Handoffs
+// ---------------------------------------------------------------------------
+
+enum HandoffStatus {
+  QUEUED
+  UPLOADING
+  COMPLETED
+  FAILED
+  EXPIRED
+}
+
 model SourceWorkspace {
-  id           String    @id @default(uuid())
-  userId       String
-  subjectId    String
-  subject      Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-  status       String    @default("NOT_CONNECTED")
-  lastSyncedAt DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id                  String   @id @default(uuid())
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectId           String?
+  subject             Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  externalWorkspaceId String?
+  title               String   @default("Notebook Workspace")
+  provider            String   @default("SOURCE_NOTEBOOK")
+  status              String   @default("NOT_CONNECTED")
+  sourceCount         Int      @default(0)
+  lastSyncedAt        DateTime?
+  metadata            Json     @default("{}")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   documentHandoffs DocumentHandoff[]
 
+  @@unique([subjectId, provider])
   @@index([userId])
   @@index([subjectId])
   @@map("source_workspaces")
@@ -168,19 +202,32 @@ model SourceWorkspace {
 
 // Transient handoff metadata ONLY. Never store parsed text/chunks/embeddings here.
 model DocumentHandoff {
-  id            String           @id @default(uuid())
-  userId        String
-  workspaceId   String?
-  workspace     SourceWorkspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
-  status        String           @default("PENDING")
-  filename      String?
-  fileSizeBytes Int?
-  errorMessage  String?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id                        String        @id @default(uuid())
+  userId                    String
+  user                      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  semesterId                String?
+  subjectId                 String?
+  subject                   Subject?      @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  workspaceId               String?
+  workspace                 SourceWorkspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  filename                  String
+  mimeType                  String        @default("application/octet-stream")
+  transientStagingUri       String?       // Nulled out immediately upon completion or expiry
+  documentType              String        @default("UNKNOWN")
+  checksum                  String        @default("")
+  handoffStatus             HandoffStatus @default(QUEUED)
+  externalWorkspaceSourceId String?
+  stagingExpiresAt          DateTime      @default(now())
+  metadata                  Json          @default("{}")
+  fileSizeBytes             Int?
+  errorMessage              String?
+  createdAt                 DateTime      @default(now())
+  updatedAt                 DateTime      @updatedAt
 
   @@index([userId])
   @@index([workspaceId])
+  @@index([stagingExpiresAt])
+  @@index([handoffStatus])
   @@map("document_handoffs")
 }
 
@@ -335,4 +382,98 @@ model Prediction {
   @@index([userId])
   @@index([subjectId])
   @@map("predictions")
+}
+
+// ---------------------------------------------------------------------------
+// Phase 7: Connected Chat Agent Executions
+// ---------------------------------------------------------------------------
+
+model AgentRun {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agentId        String   // e.g. "PLANNING_AGENT", "EVALUATION_AGENT"
+  chatUrl        String
+  taskPayload    Json
+  rawResponse    String?
+  structuredData Json?
+  status         String   // PENDING, SUCCESS, FAILED, REPAIRED
+  retryCount     Int      @default(0)
+  executionMs    Int?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("agent_runs")
+}
+
+// ---------------------------------------------------------------------------
+// Phase 8: Study Planning & Recommendations
+// ---------------------------------------------------------------------------
+
+model StudyPlan {
+  id          String      @id @default(uuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  semesterId  String
+  title       String
+  status      String      @default("PROPOSED") // PROPOSED, ACCEPTED, REJECTED
+  generatedBy String      // DETERMINISTIC_FALLBACK, PLANNING_AGENT
+  tasks       StudyTask[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("study_plans")
+}
+
+model StudyTask {
+  id              String    @id @default(uuid())
+  planId          String
+  plan            StudyPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  subjectId       String?
+  subject         Subject?  @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  title           String
+  reason          String
+  evidenceRefs    Json      @default("[]")
+  startAt         DateTime
+  endAt           DateTime
+  isCompleted     Boolean   @default(false)
+  calendarEventId String?
+
+  @@map("study_tasks")
+}
+
+// Append to database/prisma/schema.prisma
+
+enum NotificationType {
+  UPCOMING_ASSESSMENT
+  HIGH_RISK_CHANGE
+  WORKSPACE_HANDOFF_FAILURE
+  ACCEPTED_PLAN_TASK
+  DAILY_BRIEFING
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+  DISMISSED
+  SNOOZED
+}
+
+model Notification {
+  id          String             @id @default(uuid())
+  userId      String             @map("user_id")
+  type        NotificationType
+  title       String
+  message     String
+  dedupeKey   String             @unique @map("dedupe_key")
+  status      NotificationStatus @default(UNREAD)
+  snoozedUntil DateTime?         @map("snoozed_until")
+  metadata    Json?              @default("{}")
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@map("notifications")
 }
