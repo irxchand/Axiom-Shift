@@ -1,0 +1,54 @@
+{
+  "agents": [
+    {
+      "agentId": "master-orchestrator",
+      "displayName": "Master Orchestrator",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/master",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["route_intent", "compose_response"],
+      "outputSchema": "AgentRouteDecision"
+    },
+    {
+      "agentId": "planning-agent",
+      "displayName": "Planning Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/planning",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["generate_plan"],
+      "outputSchema": "StudyPlan"
+    },
+    {
+      "agentId": "source-workspace-agent",
+      "displayName": "Source Workspace Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/source-workspace",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["query_external_workspace", "route_subject_questions"],
+      "outputSchema": "SourceWorkspaceQueryPlan"
+    },
+    {
+      "agentId": "initialization-agent",
+      "displayName": "Initialization Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/initialization",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["onboard_user", "collect_setup_data"],
+      "outputSchema": "OnboardingPlan"
+    },
+    {
+      "agentId": "evaluation-agent",
+      "displayName": "Evaluation Agent",
+      "workspaceType": "CONNECTED_AI_CHAT",
+      "chatUrl": "https://chat.example.com/c/evaluation",
+      "promptVersion": "1.0.0",
+      "memoryMode": "PROVIDER_MEMORY_ENABLED",
+      "capabilities": ["explain_risk", "project_sgpa"],
+      "outputSchema": "EvaluationInsight"
+    }
+  ]
+}

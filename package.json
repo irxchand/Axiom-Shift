@@ -1,0 +1,30 @@
+{
+  "name": "axiom-shift",
+  "version": "1.0.0",
+  "description": "## Mission Semester Operations Command Center is the unified backbone for academic operations, planning, and evaluation. This is NOT a \"digital twin.\" It is a command center that operates on canonical state, integrating timetable logic, marks tracking, risk heuristic calculation, and automated agent workflows.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irxchand/Axiom-Shift.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irxchand/Axiom-Shift/issues"
+  },
+  "homepage": "https://github.com/irxchand/Axiom-Shift#readme",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.12",
+    "typescript": "^6.0.3"
+  }
+}

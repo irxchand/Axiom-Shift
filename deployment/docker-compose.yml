@@ -1,21 +1,63 @@
-version: '3.8'
+version: "3.9"
 
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
+    container_name: socc-postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: semester_ops
+      POSTGRES_USER: socc
+      POSTGRES_PASSWORD: socc_password
+      POSTGRES_DB: socc
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - socc_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U socc -d socc"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:7-alpine
+    container_name: socc-redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
+    volumes:
+      - socc_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: socc-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      # Optional: falls back cleanly if ../backend/.env doesn't exist yet
+      # (e.g. first-time `docker compose up` before running `cp .env.example .env`).
+      - path: ../backend/.env
+        required: false
+    environment:
+      DATABASE_URL: postgresql://socc:socc_password@postgres:5432/socc?schema=public
+      REDIS_URL: redis://redis:6379
+      # Overridden by ../backend/.env when present. This default only exists
+      # so a cold `docker compose up` (before .env is created) still boots.
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me}
+    ports:
+      - "4000:4000"
 
 volumes:
-  postgres_data:
+  socc_postgres_data:
+  socc_redis_data:
