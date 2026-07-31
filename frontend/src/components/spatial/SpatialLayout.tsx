@@ -1,20 +1,37 @@
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { SpatialUniverse3D } from '../3d/SpatialUniverse3D';
 import { SpatialNavigationDock } from './SpatialNavigationDock';
 import { CinematicBootSequence } from './CinematicBootSequence';
 import { CommandPaletteModal } from '../layout/CommandPaletteModal';
 import { useUIStore } from '../../store/useUIStore';
+import { backendAPI } from '../../services/backendAPI';
+import { SpatialInitializationPortal } from '../../views/spatial/SpatialInitializationPortal';
 
 export const SpatialLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { setSelectedSubjectCode } = useUIStore();
 
+  const { data: state, isLoading } = useQuery({
+    queryKey: ['systemState'],
+    queryFn: backendAPI.getState
+  });
+
   const handleSelectSubject = (code: string) => {
     setSelectedSubjectCode(code);
     navigate('/subjects');
   };
+
+  if (isLoading) {
+    return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-[#c9a45c]">Initializing Core AI...</div>;
+  }
+
+  // User requested to be directly routed to the LLM Page, bypassing initialization portal
+  // if (!state || state.summary?.hasActiveSemester === false) {
+  //   return <SpatialInitializationPortal />;
+  // }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 relative overflow-hidden select-none font-sans">

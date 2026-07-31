@@ -138,14 +138,7 @@ export const mockBackendAPI = {
 
   getSemester3DNodes: async (): Promise<Semester3DNodeDTO[]> => {
     await delay(150);
-    return [
-      { id: 'node-1', label: 'CS601: Deep Learning', category: 'SUBJECT', position: [-4, 2, 0], status: 'SAFE', subjectCode: 'CS601', details: 'Syllabus 84% Completed. SGPA Contribution: High.' },
-      { id: 'node-2', label: 'CS602: Distributed Systems', category: 'SUBJECT', position: [0, 3, -2], status: 'WARNING', subjectCode: 'CS602', details: 'Midterm in 6 Days. 1 Assignment Pending.' },
-      { id: 'node-3', label: 'CS603: Compiler Design', category: 'SUBJECT', position: [4, 1.5, 1], status: 'SAFE', subjectCode: 'CS603', details: 'Lexer & AST Parser labs validated.' },
-      { id: 'node-4', label: 'CS604: Algorithms', category: 'SUBJECT', position: [-2, -2, 2], status: 'SAFE', subjectCode: 'CS604', details: 'NP-Completeness proof mastery achieved.' },
-      { id: 'node-5', label: 'CS605: Quantum Computing', category: 'SUBJECT', position: [3, -2.5, -1], status: 'WARNING', subjectCode: 'CS605', details: 'Qubit Entanglement quiz due next week.' },
-      { id: 'node-6', label: 'Midterm Assessment Week', category: 'EXAM', position: [0, 0, 4], status: 'CRITICAL', dueDate: '2026-07-30', details: 'Weighted 35% of total SGPA score.' }
-    ];
+    return [];
   },
 
   getTimetableSlots: async (): Promise<TimetableSlotDTO[]> => {
@@ -165,88 +158,8 @@ export const mockBackendAPI = {
   },
 
   getSubjects: async (): Promise<SubjectDTO[]> => {
-    await delay(180);
-    return [
-      {
-        code: 'CS601',
-        name: 'Neural Networks & Deep Learning',
-        credits: 4,
-        faculty: 'Dr. Aris Thorne',
-        syllabusProgressPercent: 84,
-        riskTier: 'LOW',
-        notesAvailableCount: 24,
-        assignmentsTotal: 5,
-        assignmentsSubmitted: 4,
-        topics: [
-          { id: 'tp-1', title: 'Gradient Descent & Backpropagation', status: 'COMPLETED', difficulty: 'MEDIUM' },
-          { id: 'tp-2', title: 'Convolutional Architectures & ResNets', status: 'COMPLETED', difficulty: 'MEDIUM' },
-          { id: 'tp-3', title: 'Transformer Attention Mechanisms', status: 'IN_PROGRESS', difficulty: 'HARD' },
-          { id: 'tp-4', title: 'Diffusion Models & Generative AI', status: 'PENDING', difficulty: 'HARD' }
-        ]
-      },
-      {
-        code: 'CS602',
-        name: 'Distributed Systems & Cloud',
-        credits: 4,
-        faculty: 'Dr. Evelyn Vance',
-        syllabusProgressPercent: 72,
-        riskTier: 'MEDIUM',
-        notesAvailableCount: 19,
-        assignmentsTotal: 4,
-        assignmentsSubmitted: 3,
-        topics: [
-          { id: 'tp-5', title: 'Lamport Timestamps & Vector Clocks', status: 'COMPLETED', difficulty: 'EASY' },
-          { id: 'tp-6', title: 'Raft Consensus Protocol & Fault Tolerance', status: 'IN_PROGRESS', difficulty: 'HARD' },
-          { id: 'tp-7', title: 'Distributed Hash Tables (Chord/Kademlia)', status: 'PENDING', difficulty: 'MEDIUM' }
-        ]
-      },
-      {
-        code: 'CS603',
-        name: 'Advanced Compiler Design',
-        credits: 3,
-        faculty: 'Prof. K. Sterling',
-        syllabusProgressPercent: 90,
-        riskTier: 'LOW',
-        notesAvailableCount: 31,
-        assignmentsTotal: 4,
-        assignmentsSubmitted: 4,
-        topics: [
-          { id: 'tp-8', title: 'LALR Parsing & Lexical Scanning', status: 'COMPLETED', difficulty: 'EASY' },
-          { id: 'tp-9', title: 'SSA Form & Intermediate Representation', status: 'COMPLETED', difficulty: 'MEDIUM' },
-          { id: 'tp-10', title: 'Register Allocation via Graph Coloring', status: 'IN_PROGRESS', difficulty: 'HARD' }
-        ]
-      },
-      {
-        code: 'CS604',
-        name: 'Algorithmic Complexity Theory',
-        credits: 4,
-        faculty: 'Dr. S. Raman',
-        syllabusProgressPercent: 65,
-        riskTier: 'LOW',
-        notesAvailableCount: 16,
-        assignmentsTotal: 3,
-        assignmentsSubmitted: 2,
-        topics: [
-          { id: 'tp-11', title: 'P vs NP Reductions & SAT Problems', status: 'COMPLETED', difficulty: 'HARD' },
-          { id: 'tp-12', title: 'Approximation Algorithms & LP Duality', status: 'IN_PROGRESS', difficulty: 'HARD' }
-        ]
-      },
-      {
-        code: 'CS605',
-        name: 'Quantum Computing Fundamentals',
-        credits: 3,
-        faculty: 'Prof. M. Brody',
-        syllabusProgressPercent: 58,
-        riskTier: 'HIGH',
-        notesAvailableCount: 12,
-        assignmentsTotal: 4,
-        assignmentsSubmitted: 2,
-        topics: [
-          { id: 'tp-13', title: 'Bloch Sphere & Single Qubit Gates', status: 'COMPLETED', difficulty: 'EASY' },
-          { id: 'tp-14', title: 'Shor & Grover Quantum Algorithms', status: 'PENDING', difficulty: 'HARD' }
-        ]
-      }
-    ];
+    await delay(200);
+    return [];
   },
 
   getKnowledgeConcepts: async (subjectCode: string): Promise<KnowledgeConceptNodeDTO[]> => {

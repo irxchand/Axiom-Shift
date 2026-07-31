@@ -1,4 +1,4 @@
-import { Assessment, RiskProfile } from '../evaluation/evaluation.types';
+import { Assessment, RiskProfile } from '../evaluation/evaluation.types.js';
 
 export interface PlanningSubjectContext {
   subjectId: string;

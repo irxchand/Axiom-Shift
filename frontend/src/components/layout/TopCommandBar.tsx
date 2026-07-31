@@ -79,7 +79,7 @@ export const TopCommandBar: React.FC = () => {
             AV
           </div>
           <div className="hidden xl:block text-left">
-            <p className="font-semibold text-[#f5ebe0] leading-tight text-xs">Alex Vance</p>
+            <p className="font-semibold text-[#f5ebe0] leading-tight text-xs">User</p>
             <p className="text-[10px] text-[#9a9082]">CS Honors</p>
           </div>
         </div>

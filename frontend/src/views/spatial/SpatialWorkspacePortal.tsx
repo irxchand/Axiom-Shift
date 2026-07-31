@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Upload, ShieldCheck, Key, RefreshCw, CheckCircle, AlertCircle, Clock, Server, Lock } from 'lucide-react';
+import { Upload, ShieldCheck, Key, RefreshCw, CheckCircle, AlertCircle, Clock, Server, Lock, ArrowRight } from 'lucide-react';
 import { backendAPI } from '../../services/backendAPI';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 
@@ -235,6 +235,20 @@ export const SpatialWorkspacePortal: React.FC = () => {
           </div>
         </form>
       </ParchmentCard>
+
+      {/* Manual Fallback Links */}
+      <div className="flex flex-col sm:flex-row justify-end items-center gap-4 text-xs pt-4">
+        <span className="text-[#9a9082]">Need to fetch your Canvas session cookies manually?</span>
+        <a 
+          href="https://canvas.instructure.com/" 
+          target="_blank" 
+          rel="noreferrer"
+          className="px-4 py-1.5 rounded-xl bg-[#1b1612] hover:bg-[#28211a] text-[#c9a45c] hover:text-[#f5ebe0] border border-[#28211a] transition-all flex items-center gap-2"
+        >
+          <ArrowRight className="w-3.5 h-3.5" />
+          <span>Open Canvas LMS</span>
+        </a>
+      </div>
     </div>
   );
 };

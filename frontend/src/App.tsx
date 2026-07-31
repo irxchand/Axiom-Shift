@@ -28,7 +28,7 @@ export const App: React.FC = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SpatialLayout />}>
-            <Route index element={<SpatialCommandPortal />} />
+            <Route index element={<SpatialAICorePortal />} />
             <Route path="calendar" element={<SpatialCalendarPortal />} />
             <Route path="timetable" element={<SpatialTimetablePortal />} />
             <Route path="subjects" element={<SpatialSubjectUniversePortal />} />

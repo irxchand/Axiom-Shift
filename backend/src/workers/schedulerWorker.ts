@@ -1,5 +1,5 @@
 import { Worker, Queue } from 'bullmq';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { PrismaClient } from '@prisma/client';
 
 const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';

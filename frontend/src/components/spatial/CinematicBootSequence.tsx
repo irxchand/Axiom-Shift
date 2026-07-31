@@ -176,63 +176,9 @@ export const CinematicBootSequence: React.FC = () => {
         </div>
       </header>
 
-      {/* FLOATING STUDY CARDS - LEFT SIDE */}
-      <div
-        className="hidden lg:flex flex-col space-y-4 absolute left-12 top-1/2 -translate-y-1/2 w-64 p-5 rounded-2xl bg-[#16110c]/50 border border-[#28211a] backdrop-blur-xl shadow-2xl z-10 transition-transform duration-700 pointer-events-none"
-        style={{ transform: `translateY(-50%) translate(${mousePos.x * -12}px, ${mousePos.y * -12}px)` }}
-      >
-        <div className="flex justify-between items-center border-b border-[#28211a] pb-2.5">
-          <span className="text-[10px] font-bold text-[#c9a96e] uppercase tracking-wider flex items-center gap-1.5 font-cinzel">
-            <BookOpen className="w-3.5 h-3.5 text-[#c9a96e]" /> TODAY'S READING
-          </span>
-          <span className="text-[10px] text-[#a39788]">PG. 142</span>
-        </div>
+      {/* FLOATING STUDY CARDS - LEFT SIDE (Removed until dynamic content is added) */}
 
-        <div className="space-y-2 text-xs">
-          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] space-y-1">
-            <span className="text-[#a39788] text-[10px] uppercase block font-medium">CS602 // ALGORITHMS</span>
-            <p className="font-cinzel font-semibold text-[#f5ebe0] text-xs">Chapter 4: Neural Architectures</p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] flex justify-between items-center">
-            <div>
-              <span className="text-[#a39788] text-[10px] block uppercase">FOCUS SESSION</span>
-              <span className="font-mono text-[#c9a96e] text-xs font-bold">45 MIN REMAINING</span>
-            </div>
-            <Clock className="w-4 h-4 text-[#c9a96e]" />
-          </div>
-        </div>
-      </div>
-
-      {/* FLOATING STUDY CARDS - RIGHT SIDE */}
-      <div
-        className="hidden lg:flex flex-col space-y-4 absolute right-12 top-1/2 -translate-y-1/2 w-64 p-5 rounded-2xl bg-[#16110c]/50 border border-[#28211a] backdrop-blur-xl shadow-2xl z-10 transition-transform duration-700 pointer-events-none"
-        style={{ transform: `translateY(-50%) translate(${mousePos.x * 12}px, ${mousePos.y * 12}px)` }}
-      >
-        <div className="flex justify-between items-center border-b border-[#28211a] pb-2.5">
-          <span className="text-[10px] font-bold text-[#c9a96e] uppercase tracking-wider flex items-center gap-1.5 font-cinzel">
-            <Flame className="w-3.5 h-3.5 text-amber-500" /> STUDY STREAK
-          </span>
-          <span className="text-[10px] font-bold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">14 DAYS</span>
-        </div>
-
-        <div className="space-y-2 text-xs">
-          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] space-y-1">
-            <span className="text-[#a39788] text-[10px] uppercase block font-medium">QUOTE OF THE DAY</span>
-            <p className="italic text-[#d8cebe] text-[11px] font-serif">
-              "Knowledge is the only treasure that expands when shared."
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0f0b08]/60 border border-[#28211a] flex justify-between items-center">
-            <div>
-              <span className="text-[#a39788] text-[10px] block uppercase">WEEKLY GOALS</span>
-              <span className="text-[#f5ebe0] text-xs font-bold">4 of 5 Chapters Mastered</span>
-            </div>
-            <Bookmark className="w-4 h-4 text-[#c9a96e]" />
-          </div>
-        </div>
-      </div>
+      {/* FLOATING STUDY CARDS - RIGHT SIDE (Removed until dynamic content is added) */}
 
       {/* HERO SECTION: OPEN BOOK LEATHER JOURNAL EXPERIENCE */}
       <main className="relative z-20 max-w-2xl mx-auto text-center my-auto px-6 py-8">

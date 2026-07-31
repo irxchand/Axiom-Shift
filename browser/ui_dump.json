@@ -1,0 +1,219 @@
+[
+  {
+    "tag": "A",
+    "role": "button",
+    "ariaLabel": "Google apps",
+    "text": "",
+    "className": "gb_C"
+  },
+  {
+    "tag": "A",
+    "role": "button",
+    "ariaLabel": "Google Account: Ishaan.Chand btech2025  \n(ishaan.chand.btech2025@sitpune.edu.in)",
+    "text": "",
+    "className": "gb_C gb_9a gb_8"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "settings Settings All Collections search grid_view",
+    "className": "app-body"
+  },
+  {
+    "tag": "A",
+    "role": null,
+    "ariaLabel": "Gemini Notebook Homepage",
+    "text": "",
+    "className": "logo-link"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Settings",
+    "text": "settings Settings",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger extendable-button mat-tonal-button extendable-button-extended mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "All Collections search grid_view view_headline Mos",
+    "className": "welcome-page-container welcome-page-container-featured-projects-enabled-tab-view"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "All Collections search grid_view view_headline Mos",
+    "className": "project-actions-container project-actions-container-tab-view"
+  },
+  {
+    "tag": "BUTTON",
+    "role": "radio",
+    "ariaLabel": null,
+    "text": "All",
+    "className": "mat-button-toggle-button mat-focus-indicator"
+  },
+  {
+    "tag": "BUTTON",
+    "role": "radio",
+    "ariaLabel": null,
+    "text": "Collections",
+    "className": "mat-button-toggle-button mat-focus-indicator"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "search grid_view view_headline Most recent arrow_d",
+    "className": "project-view-toggle-container project-view-toggle-container-enable-featured-projects-tab-view project-view-toggle-container-search-enabled"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Open search",
+    "text": "search",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base search-icon-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": "radio",
+    "ariaLabel": "Grid view",
+    "text": "grid_view",
+    "className": "mat-button-toggle-button mat-focus-indicator"
+  },
+  {
+    "tag": "BUTTON",
+    "role": "radio",
+    "ariaLabel": "List view",
+    "text": "view_headline",
+    "className": "mat-button-toggle-button mat-focus-indicator"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Most recent arrow_drop_down add Create new",
+    "className": "project-filter-create-container"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Most recent arrow_drop_down",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger project-filter-button mat-mdc-button mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create new",
+    "className": "create-button-wrapper"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create new",
+    "className": "create-upsell-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create new",
+    "className": "create-upsell-wrapper"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Create new notebook",
+    "text": "add Create new",
+    "className": "mdc-button mat-mdc-button-base create-new-button mat-tonal-button mat-unthemed"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create new",
+    "className": "mdc-button__label"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create new",
+    "className": "create-new-label"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Recent notebooks add Create new notebook \ud83d\udcd4 more_v",
+    "className": "all-projects-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Recent notebooks add Create new notebook \ud83d\udcd4 more_v",
+    "className": "my-projects-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Recent notebooks",
+    "className": ""
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create new notebook \ud83d\udcd4 more_vert Untitled note",
+    "className": "project-grid-container"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create new notebook",
+    "className": "mat-title-large"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Project Actions Menu",
+    "text": "more_vert",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger project-button-more mat-mdc-button mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Untitled notebook",
+    "className": ""
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Untitled notebook",
+    "className": "project-button-title"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Jul 30, 2026\u00b70 sources",
+    "className": "project-button-subtitle"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources",
+    "className": "project-button-subtitle-part project-button-subtitle-part-sources"
+  }
+]

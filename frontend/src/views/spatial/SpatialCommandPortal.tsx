@@ -178,7 +178,7 @@ export const SpatialCommandPortal: React.FC = () => {
               RECOMMENDED STUDY ACTIONS
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {aiBriefing?.suggestedActions.map(action => (
+              {aiBriefing?.suggestedActions?.map(action => (
                 <ParchmentCard key={action.id} className="p-3.5 space-y-1">
                   <span className="text-[#d4af37] font-semibold text-[10px] block">{action.category}</span>
                   <p className="text-[#f5ebe0] text-xs font-medium line-clamp-2">{action.title}</p>

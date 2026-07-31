@@ -1,0 +1,28 @@
+{
+  "site_id": "notebooklm",
+  "base_url": "https://notebooklm.google.com/",
+  "selectors": {
+    "chat_input": "textarea.query-box-input",
+    "send_button": "button.submit-button",
+    "response_container": "div.message-container",
+    "generating_indicator": "button:has-text('Stop')",
+    "sidebar": {
+      "new_chat_button": "button[aria-label='Create new notebook'], .create-new-button",
+      "search_button": "button[aria-label='Open search']",
+      "search_input": "input[type='text']",
+      "search_results": ".project-button-title"
+    },
+    "upload": {
+      "file_input": "input[type='file']",
+      "add_source_button": "button:has-text('Upload files'), .add-source-button"
+    }
+  },
+  "timing": {
+    "typing_delay_ms": [20, 60],
+    "initial_wait_before_check_ms": 3000,
+    "stability_check_interval_ms": 1000,
+    "stability_required_checks": 3,
+    "max_wait_ms": 120000
+  },
+  "completion_strategy": "generating_indicator_gone_and_text_stable"
+}

@@ -8,8 +8,60 @@ export async function executeAgentRun(runId: string) {
   const run = await prisma.agentRun.findUnique({ where: { id: runId } });
   if (!run) throw new Error(`AgentRun ${runId} not found`);
 
+  const startTime = Date.now();
   const adapter = new BrowserFrameworkAdapter();
-  return adapter.executeRun(run as any);
+  
+  try {
+    const payload = run.taskPayload as any;
+    const prompt = typeof payload === 'object' && payload !== null ? payload.prompt || '' : '';
+    const filePaths = typeof payload === 'object' && payload !== null ? payload.filePaths || [] : [];
+
+    const response = await adapter.execute<{ message: string }>({
+      action: 'SEND_CHAT',
+      chatUrl: run.chatUrl,
+      payload: { prompt, filePaths },
+      headless: false
+    } as any);
+
+    const rawText = response.data?.message || '';
+
+    // If it's the initialization agent, try to parse it as JSON
+    let structuredData = null;
+    if (run.agentId === 'initialization-agent') {
+      try {
+        const jsonStart = rawText.indexOf('{');
+        const jsonEnd = rawText.lastIndexOf('}');
+        if (jsonStart !== -1 && jsonEnd !== -1) {
+          structuredData = JSON.parse(rawText.slice(jsonStart, jsonEnd + 1));
+        }
+      } catch (e) {
+        console.warn("Failed to parse agent JSON response", e);
+      }
+    }
+
+    await prisma.agentRun.update({
+      where: { id: run.id },
+      data: {
+        status: 'SUCCESS',
+        rawResponse: rawText,
+        structuredData: structuredData as any,
+        executionMs: Date.now() - startTime,
+        retryCount: 0
+      }
+    });
+
+    return structuredData || rawText;
+  } catch (error: any) {
+    await prisma.agentRun.update({
+      where: { id: run.id },
+      data: {
+        status: 'FAILED',
+        rawResponse: error.message,
+        executionMs: Date.now() - startTime,
+      }
+    });
+    throw error;
+  }
 }
 
 export class AgentRunner {

@@ -1,0 +1,17 @@
+2026/07/31-08:56:23.096 a304 Reusing MANIFEST E:\Python\Sem Ops\Axiom-Shift\backend\.browser_profiles\default\Default\Local Storage\leveldb/MANIFEST-000001
+2026/07/31-08:56:23.107 a304 Recovering log #15
+2026/07/31-08:56:23.108 a304 Level-0 table #18: started
+2026/07/31-08:56:23.118 a304 Level-0 table #18: 20833 bytes OK
+2026/07/31-08:56:23.119 a304 Recovering log #18
+2026/07/31-08:56:23.122 a304 Reusing old log E:\Python\Sem Ops\Axiom-Shift\backend\.browser_profiles\default\Default\Local Storage\leveldb/000018.log 
+2026/07/31-08:56:23.124 a304 Delete type=0 #15
+2026/07/31-08:56:23.125 a304 Delete type=2 #19
+2026/07/31-08:56:23.126 6680 Compacting 4@0 + 1@1 files
+2026/07/31-08:56:23.135 6680 Generated table #19@0: 13 keys, 8043 bytes
+2026/07/31-08:56:23.135 6680 Compacted 4@0 + 1@1 files => 8043 bytes
+2026/07/31-08:56:23.136 6680 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/07/31-08:56:23.137 6680 Delete type=2 #8
+2026/07/31-08:56:23.137 6680 Delete type=2 #10
+2026/07/31-08:56:23.137 6680 Delete type=2 #13
+2026/07/31-08:56:23.137 6680 Delete type=2 #16
+2026/07/31-08:56:23.137 6680 Delete type=2 #18

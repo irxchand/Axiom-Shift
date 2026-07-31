@@ -1,4 +1,4 @@
-import { DailyBriefing, BriefingClass, BriefingPriority } from './notifications.types';
+import { DailyBriefing, BriefingClass, BriefingPriority } from './notifications.types.js';
 
 export function synthesizeDailyBriefing(
   classesToday: BriefingClass[],

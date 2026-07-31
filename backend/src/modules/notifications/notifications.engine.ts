@@ -1,5 +1,5 @@
-import { AppNotification, NotificationType, NotificationSeverity } from './notifications.types';
-import { Assessment } from '../evaluation/evaluation.types';
+import { AppNotification, NotificationType, NotificationSeverity } from './notifications.types.js';
+import { Assessment } from '../evaluation/evaluation.types.js';
 
 // The Silencer: Drops duplicate notifications based on dedupeKey and time window
 export function filterDuplicates(

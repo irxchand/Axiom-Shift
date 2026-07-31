@@ -1,5 +1,7 @@
 import { env } from "./lib/env.js";
 import { buildApp } from "./app.js";
+import { documentHandoffWorker } from './workers/documentHandoffWorker.js';
+import { agentRunWorker } from './workers/agentRunWorker.js';
 
 async function main() {
   const app = await buildApp();
@@ -13,6 +15,8 @@ async function main() {
 
   const shutdown = async (signal: string) => {
     app.log.info({ signal }, "Shutting down");
+    await documentHandoffWorker.close();
+    await agentRunWorker.close();
     await app.close();
     process.exit(0);
   };

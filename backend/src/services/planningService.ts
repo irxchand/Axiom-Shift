@@ -51,6 +51,7 @@ export class PlanningService {
             userId,
             semesterId: plan.semesterId,
             subjectId: task.subjectId,
+            kind: 'ONE_OFF',
             title: task.title,
             eventType: 'STUDY_SESSION',
             startAt: task.startAt,
@@ -75,22 +76,4 @@ export class PlanningService {
     });
   }
 }
-
-await prisma.calendarEvent.create({
-  data: {
-    userId,
-    semesterId,
-    subjectId: task.subjectId || null,
-    kind: 'ONE_OFF', // Required enum property in schema
-    title: task.title,
-    eventType: 'STUDY_SESSION',
-    startAt: task.startAt,
-    endAt: task.endAt,
-    source: 'PLANNING_AGENT',
-    status: 'SCHEDULED',
-    metadata: {
-      reason: task.reason,
-      evidenceRefs: task.evidenceRefs,
-    },
-  },
-});
+

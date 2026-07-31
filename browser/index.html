@@ -57,6 +57,9 @@
                         setMessages(prev => [...prev, { sender: 'bot', text: text }]);
                     } else if (data.type === 'system') {
                         setMessages(prev => [...prev, { sender: 'system', text: data.message }]);
+                    } else if (data.type === 'quit') {
+                        setMessages(prev => [...prev, { sender: 'system', text: data.message }]);
+                        setTimeout(() => window.close(), 1000);
                     } else if (data.type === 'error') {
                         setMessages(prev => [...prev, { sender: 'error', text: data.message }]);
                     } else {

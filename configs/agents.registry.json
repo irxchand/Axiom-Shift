@@ -4,50 +4,64 @@
       "agentId": "master-orchestrator",
       "displayName": "Master Orchestrator",
       "workspaceType": "CONNECTED_AI_CHAT",
-      "chatUrl": "https://chat.example.com/c/master",
+      "chatUrl": "https://chatgpt.com/c/6a6bea4c-0abc-83ee-9634-abe3acc29f1c",
       "promptVersion": "1.0.0",
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
-      "capabilities": ["route_intent", "compose_response"],
+      "capabilities": [
+        "route_intent",
+        "compose_response"
+      ],
       "outputSchema": "AgentRouteDecision"
     },
     {
       "agentId": "planning-agent",
       "displayName": "Planning Agent",
       "workspaceType": "CONNECTED_AI_CHAT",
-      "chatUrl": "https://chat.example.com/c/planning",
+      "chatUrl": "https://chatgpt.com/c/6a6bea5a-ee40-83ee-aad7-d273585b6717",
       "promptVersion": "1.0.0",
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
-      "capabilities": ["generate_plan"],
+      "capabilities": [
+        "generate_plan"
+      ],
       "outputSchema": "StudyPlan"
     },
     {
       "agentId": "source-workspace-agent",
       "displayName": "Source Workspace Agent",
       "workspaceType": "CONNECTED_AI_CHAT",
-      "chatUrl": "https://chat.example.com/c/source-workspace",
+      "chatUrl": "https://chatgpt.com/c/6a6bea67-cef8-83ee-8259-0e5687da514a",
       "promptVersion": "1.0.0",
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
-      "capabilities": ["query_external_workspace", "route_subject_questions"],
+      "capabilities": [
+        "query_external_workspace",
+        "route_subject_questions"
+      ],
       "outputSchema": "SourceWorkspaceQueryPlan"
     },
     {
       "agentId": "initialization-agent",
       "displayName": "Initialization Agent",
       "workspaceType": "CONNECTED_AI_CHAT",
-      "chatUrl": "https://chat.example.com/c/initialization",
+      "chatUrl": "https://chatgpt.com/c/6a6bea72-0980-83e8-911c-6be11d1bc3d4",
       "promptVersion": "1.0.0",
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
-      "capabilities": ["onboard_user", "collect_setup_data"],
+      "capabilities": [
+        "onboard_user",
+        "collect_setup_data"
+      ],
       "outputSchema": "OnboardingPlan"
     },
     {
       "agentId": "evaluation-agent",
       "displayName": "Evaluation Agent",
       "workspaceType": "CONNECTED_AI_CHAT",
-      "chatUrl": "https://chat.example.com/c/evaluation",
+      "chatUrl": "https://chatgpt.com/c/6a6bea7b-70e8-83ee-a48e-7105cfe55b85",
       "promptVersion": "1.0.0",
       "memoryMode": "PROVIDER_MEMORY_ENABLED",
-      "capabilities": ["explain_risk", "project_sgpa"],
+      "capabilities": [
+        "explain_risk",
+        "project_sgpa"
+      ],
       "outputSchema": "EvaluationInsight"
     }
   ]

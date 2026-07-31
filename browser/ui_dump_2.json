@@ -1,0 +1,779 @@
+[
+  {
+    "tag": "A",
+    "role": "button",
+    "ariaLabel": "Google apps",
+    "text": "",
+    "className": "gb_C"
+  },
+  {
+    "tag": "A",
+    "role": "button",
+    "ariaLabel": "Google Account: Ishaan.Chand btech2025  \n(ishaan.chand.btech2025@sitpune.edu.in)",
+    "text": "",
+    "className": "gb_C gb_9a gb_8"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create notebook content_copy Copy trending_up ",
+    "className": "app-body"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create notebook content_copy Copy trending_up ",
+    "className": "notebook-header-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create notebook content_copy Copy trending_up ",
+    "className": "container ng-star-inserted"
+  },
+  {
+    "tag": "A",
+    "role": null,
+    "ariaLabel": "Gemini Notebook Homepage",
+    "text": "",
+    "className": "logo-link"
+  },
+  {
+    "tag": "INPUT",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Untitled notebook",
+    "className": "title-input mat-title-large ng-untouched ng-pristine ng-valid"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create notebook content_copy Copy trending_up ",
+    "className": "notebook-header-buttons-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Create notebook",
+    "className": "cta-group-container ng-star-inserted"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Create notebook",
+    "text": "add Create notebook",
+    "className": "mdc-button mat-mdc-button-base create-notebook-button mat-tonal-button mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create notebook",
+    "className": "mdc-button__label"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create notebook",
+    "className": ""
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Copy notebook",
+    "text": "content_copy Copy",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger extendable-button mat-tonal-button extendable-button-extended mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "",
+    "text": "trending_up Analytics",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger extendable-button mat-tonal-button extendable-button-extended mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Share notebook",
+    "text": "share Share",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger extendable-button mat-tonal-button extendable-button-extended mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Settings",
+    "text": "settings Settings",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger extendable-button mat-tonal-button extendable-button-extended mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Sources dock_to_right add Add sources language key",
+    "className": "panel-container ng-tns-c1834374062-0 ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Sources dock_to_right",
+    "className": "panel-header ng-tns-c1834374062-0"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Sources",
+    "className": "ng-tns-c1834374062-0"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Collapse source panel",
+    "text": "dock_to_right",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-mdc-tooltip-trigger toggle-source-panel-button label-medium-button ng-tns-c1834374062-0 mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Add sources language keyboard_arrow_down searc",
+    "className": "source-panel-content ng-tns-c1834374062-0 ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Add sources language keyboard_arrow_down searc",
+    "className": "contents ng-tns-c855569521-2 ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Add sources language keyboard_arrow_down searc",
+    "className": "ng-tns-c855569521-2"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add Add sources",
+    "className": "button-row ng-tns-c855569521-2 ng-star-inserted"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Add source",
+    "text": "add Add sources",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-tooltip-trigger add-source-button ng-tns-c855569521-2 mdc-button--outlined mat-mdc-outlined-button button-small mat-unthemed"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Add sources",
+    "className": "mdc-button__label"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Add sources",
+    "className": ""
+  },
+  {
+    "tag": "TEXTAREA",
+    "role": null,
+    "ariaLabel": "Discover sources based on the inputted query",
+    "text": "Search the web for new sources",
+    "className": "mat-mdc-input-element cdk-textarea-autosize query-box-textarea mat-body-medium ng-untouched ng-pristine ng-invalid mat-mdc-form-field-textarea-control mat-mdc-form-field-input-control mdc-text-field__input cdk-text-field-autofill-monitored"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "language keyboard_arrow_down",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger corpus-select corpus-menu-trigger button-small mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "search_spark keyboard_arrow_down",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger corpus-select researcher-menu-trigger button-small mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Submit",
+    "text": "search",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base actions-enter-button outset-focus-ring mat-mdc-button-disabled mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "docs Saved sources will appear here Add files, web",
+    "className": "xap-uploader-dropzone sources-list-dropzone ng-tns-c855569521-2"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "docs Saved sources will appear here Add files, web",
+    "className": "ng-tns-c855569521-2 scroll-container-no-sources ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "docs Saved sources will appear here Add files, web",
+    "className": "ng-tns-c855569521-2 scroll-area-desktop"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "docs Saved sources will appear here Add files, web",
+    "className": "source-empty-state ng-tns-c855569521-2 ng-star-inserted"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Saved sources will appear here",
+    "className": "source-empty-state-header mat-title-small ng-tns-c855569521-2"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Add files, websites, or more. Then ask questions o",
+    "className": "source-empty-state-text mat-body-medium ng-tns-c855569521-2"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Add files, websites, or more. Then ask questions o",
+    "className": "ng-tns-c855569521-2"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "add a source",
+    "className": "add-source-link ng-tns-c855569521-2 ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Chat more_vert",
+    "className": "panel-header ng-tns-c1834374062-0"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Chat",
+    "className": "title-and-promo ng-tns-c1834374062-0"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Chat options",
+    "text": "more_vert",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-mdc-menu-trigger mat-mdc-tooltip-trigger label-medium-button ng-tns-c1834374062-0 mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "landscape_2 \ud83d\udcd4 photo_spark Customize Untitled note",
+    "className": "chat-panel-content"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "landscape_2 \ud83d\udcd4 photo_spark Customize Untitled note",
+    "className": "cover-image can-customize"
+  },
+  {
+    "tag": "INPUT",
+    "role": null,
+    "ariaLabel": "Search for an emoji, press Escape to dismiss.",
+    "text": "Search",
+    "className": ""
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Search results",
+    "className": "emoji-keyboard__grid__title"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Recently used",
+    "className": "emoji-keyboard__grid__title"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize notebook",
+    "text": "photo_spark Customize",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-tooltip-trigger customize-button mat-label-medium mdc-button--outlined mat-mdc-outlined-button mat-unthemed ng-star-inserted mat-mdc-tooltip-disabled"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Untitled notebook 0 sources \u00b7 Jul 30, 2026",
+    "className": "cover-content"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources \u00b7 Jul 30, 2026",
+    "className": "cover-subtitle mat-body-medium ng-star-inserted"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources",
+    "className": "cover-subtitle-source-count"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Scrolls the chat panel to the bottom",
+    "text": "",
+    "className": "mdc-fab mat-mdc-fab-base mat-mdc-fab mat-mdc-button-base mat-mdc-tooltip-trigger jump-to-bottom-button mat-primary"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "omnibar-container ng-tns-c380100953-1"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "bottom-container ng-tns-c380100953-1"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "query-box-container ng-tns-c380100953-1"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "query-box"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "input-group"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "message-container"
+  },
+  {
+    "tag": "TEXTAREA",
+    "role": null,
+    "ariaLabel": "Query box",
+    "text": "Start typing...",
+    "className": "cdk-textarea-autosize mat-mdc-autocomplete-trigger query-box-input ng-pristine ng-invalid ng-touched"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources arrow_forward",
+    "className": "bottom-right-container ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources",
+    "className": "selected-num-container mat-body-small ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "0 sources",
+    "className": "selected-num"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Submit",
+    "text": "arrow_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base submit-button outset-focus-ring mat-mdc-button-disabled mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Collapse studio panel",
+    "text": "dock_to_left",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-mdc-tooltip-trigger toggle-studio-panel-button label-medium-button ng-tns-c1834374062-0 mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create an Audio Overview in:  \u0939\u093f\u0928\u094d\u0926\u0940 , \u09ac\u09be\u0982\u09b2\u09be , \u0a97\u0ac1\u0a9c",
+    "className": "panel-content-scrollable ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "\ud83c\udf89 Try new Short Video Overviews! Try it close",
+    "className": "artifact-callout mat-label-medium ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Try new Short Video Overviews! Try it close",
+    "className": "banner-text"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Try new Short Video Overviews!",
+    "className": ""
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Try it",
+    "className": "mdc-button mat-mdc-button-base try-it-button mat-tonal-button mat-mdc-button-disabled mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Dismiss banner",
+    "text": "close",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base mat-mdc-tooltip-trigger banner-dismiss-button mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Audio Overview",
+    "text": "audio_magic_eraser Audio Overview chevron_forward",
+    "className": "mat-mdc-tooltip-trigger blue create-artifact-button-container mat-label-medium"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Audio Overview",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Slide Deck",
+    "text": "tablet BETA Slide Deck chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container mat-label-medium yellow"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Slide Deck",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Video Overview",
+    "text": "subscriptions Video Overview chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container green mat-label-medium"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Mind Map",
+    "text": "flowchart Mind Map chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container mat-label-medium pink"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Mind Map",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Reports",
+    "text": "auto_tab_group Reports chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container mat-label-medium yellow"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Flashcards",
+    "text": "cards_star Flashcards chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container mat-label-medium orange"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Flashcards",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Quiz",
+    "text": "quiz Quiz chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container cyan mat-label-medium"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Quiz",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Infographic",
+    "text": "stacked_bar_chart BETA Infographic chevron_forward",
+    "className": "mat-mdc-tooltip-trigger create-artifact-button-container mat-label-medium pink"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Infographic",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": "button",
+    "ariaLabel": "Data Table",
+    "text": "table_view Data Table chevron_forward",
+    "className": "mat-mdc-tooltip-trigger blue create-artifact-button-container mat-label-medium"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Customize Data Table",
+    "text": "chevron_forward",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base edit-button edit-button-always-visible mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "edit_fix_auto Studio output will be saved here. Af",
+    "className": "artifact-library-container artifact-library-container-empty"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "edit_fix_auto Studio output will be saved here. Af",
+    "className": "artifact-library-empty-state ng-star-inserted"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "After adding sources, click to add Audio Overview,",
+    "className": "mat-body-medium ng-star-inserted"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "sticky_note_2 Add note",
+    "className": "mdc-button mat-mdc-button-base add-note-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "cdk-overlay-container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "cdk-overlay-popover cdk-global-overlay-wrapper"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "cdk-overlay-pane mat-mdc-dialog-panel"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "mat-mdc-dialog-inner-container mdc-dialog__container"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "mat-mdc-dialog-surface mdc-dialog__surface"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Create Audio and Video Overviews from websites you",
+    "className": "dialog-container state-main"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "language Web keyboard_arrow_down search_spark Fast",
+    "className": "mat-mdc-dialog-content mdc-dialog__content"
+  },
+  {
+    "tag": "TEXTAREA",
+    "role": null,
+    "ariaLabel": "Discover sources based on the inputted query",
+    "text": "Search the web for new sources",
+    "className": "mat-mdc-input-element cdk-textarea-autosize query-box-textarea mat-body-medium ng-untouched ng-pristine ng-invalid mat-mdc-form-field-textarea-control mat-mdc-form-field-input-control mdc-text-field__input cdk-text-field-autofill-monitored"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "language Web keyboard_arrow_down",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger corpus-select corpus-menu-trigger button-small mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "search_spark Fast Research keyboard_arrow_down",
+    "className": "mdc-button mat-mdc-button-base mat-mdc-menu-trigger corpus-select researcher-menu-trigger button-small mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Submit",
+    "text": "search",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base actions-enter-button outset-focus-ring mat-mdc-button-disabled mat-unthemed"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "or drop your files pdf, images, docs, audio,\u00a0and m",
+    "className": "drop-zone-container ng-star-inserted"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "or drop your files pdf, images, docs, audio,\u00a0and m",
+    "className": "xap-uploader-dropzone drop-zone"
+  },
+  {
+    "tag": "DIV",
+    "role": null,
+    "ariaLabel": null,
+    "text": "upload Upload files link video_youtube Websites dr",
+    "className": "drop-zone-actions"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "upload Upload files",
+    "className": "mdc-button mat-mdc-button-base drop-zone-icon-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Upload files",
+    "className": "mdc-button__label"
+  },
+  {
+    "tag": "SPAN",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Upload files",
+    "className": ""
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "link video_youtube Websites",
+    "className": "mdc-button mat-mdc-button-base drop-zone-icon-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "drive Drive",
+    "className": "mdc-button mat-mdc-button-base drop-zone-icon-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed ng-star-inserted"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": null,
+    "text": "content_paste Copied text",
+    "className": "mdc-button mat-mdc-button-base drop-zone-icon-button mdc-button--outlined mat-mdc-outlined-button mat-unthemed"
+  },
+  {
+    "tag": "BUTTON",
+    "role": null,
+    "ariaLabel": "Close",
+    "text": "close",
+    "className": "mdc-icon-button mat-mdc-icon-button mat-mdc-button-base close-button mat-unthemed"
+  }
+]

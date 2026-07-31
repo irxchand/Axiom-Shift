@@ -1,33 +1,68 @@
-import React, { useState } from 'react';
-import { Send, Check, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { Send, Check, X, Paperclip } from 'lucide-react';
 import { SpatialGlassCard as ParchmentCard } from '../../components/spatial/SpatialGlassCard';
 import { JarvisAICore3D } from '../../components/3d/JarvisAICore3D';
 import type { AIChatMessageDTO } from '../../types/dto';
+import { backendAPI } from '../../services/backendAPI';
 
 export const SpatialAICorePortal: React.FC = () => {
-  const [messages, setMessages] = useState<AIChatMessageDTO[]>([
-    {
-      id: 'msg-1',
-      sender: 'JARVIS_AI',
-      timestamp: '11:30 AM',
-      content: 'Greetings, Alex. The Academic Engine contains full telemetry for your CS602 midterm. I have generated a recommended study block for tonight. Shall I add this entry to your Study Journal?',
-      toolExecutions: [
-        { toolName: 'inspect_archive_ledger', status: 'SUCCESS', outputSnippet: 'Found 1 timetable conflict on Thursday' }
-      ],
-      proposedActionCard: {
-        id: 'act-101',
-        actionType: 'SCHEDULE_STUDY',
-        title: 'Study Journal Entry: Distributed Systems & Raft Protocol',
-        details: 'Record 60-minute manuscript review on Wednesday at 18:00.',
-        status: 'PENDING'
-      }
-    }
-  ]);
+  const queryClient = useQueryClient();
+  const { data: state } = useQuery({ queryKey: ['systemState'], queryFn: backendAPI.getState });
+  const [messages, setMessages] = useState<AIChatMessageDTO[]>([]);
 
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  
+  // Dynamically choose agent based on whether the system is initialized
+  const activeAgentId = state?.summary?.hasActiveSemester ? 'master-orchestrator' : 'initialization-agent';
+  const [activeRunId, setActiveRunId] = useState<string | null>(null);
 
-  const handleSend = (e: React.FormEvent) => {
+  // Poll for agent run status if there's an active run
+  useEffect(() => {
+    if (!activeRunId) return;
+
+    const intervalId = setInterval(async () => {
+      try {
+        const run = await backendAPI.getAgentRun(activeRunId);
+        if (run.status === 'SUCCESS' || run.status === 'FAILED' || run.status === 'REPAIRED') {
+          setIsTyping(false);
+          setActiveRunId(null);
+          
+          let responseText = run.status === 'FAILED' ? `Error: ${run.rawResponse}` : run.rawResponse;
+          
+          if (run.structuredData) {
+            const agentData = run.structuredData;
+            if (agentData.messageToUser) responseText = agentData.messageToUser;
+            
+            if (agentData.payload?.onboardingStatus === 'COMPLETED' && agentData.payload?.collectedData) {
+               // Initialize semester!
+               await backendAPI.initializeSemester({ 
+                 name: agentData.payload.collectedData.semesterName, 
+                 timezone: agentData.payload.collectedData.timezone 
+               });
+               // Force app to re-fetch system state
+               queryClient.invalidateQueries({ queryKey: ['systemState'] });
+            }
+          }
+          
+          setMessages(prev => [...prev, {
+            id: `msg-${Date.now()}`,
+            sender: 'JARVIS_AI',
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            content: responseText,
+            toolExecutions: []
+          }]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, [activeRunId]);
+
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -42,19 +77,43 @@ export const SpatialAICorePortal: React.FC = () => {
     setInput('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      const librarianReply: AIChatMessageDTO = {
-        id: `msg-${Date.now() + 1}`,
-        sender: 'JARVIS_AI',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        content: `Query processed and recorded. Updating study journal entry for Database Systems. High priority study block scheduled for 19:00 today.`,
-        toolExecutions: [
-          { toolName: 'inscribe_journal_entry', status: 'SUCCESS', outputSnippet: 'Record #st-4 created' }
-        ]
-      };
-      setMessages(prev => [...prev, librarianReply]);
+    try {
+      const result = await backendAPI.triggerAgentChat(activeAgentId, input);
+      setActiveRunId(result.runId);
+    } catch (err) {
+      console.error(err);
       setIsTyping(false);
-    }, 1200);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setMessages(prev => [...prev, {
+        id: `msg-${Date.now()}`,
+        sender: 'USER',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        content: `Uploaded document: ${file.name}`
+      }]);
+      setIsTyping(true);
+      
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        const base64Data = (event.target?.result as string).split(',')[1];
+        try {
+          const result = await backendAPI.triggerAgentChat(
+            activeAgentId, 
+            `I have uploaded a document: ${file.name}. Please analyze it.`,
+            [{ name: file.name, data: base64Data }]
+          );
+          setActiveRunId(result.runId);
+        } catch (err) {
+          console.error(err);
+          setIsTyping(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleAction = (msgId: string, accepted: boolean) => {
@@ -77,9 +136,10 @@ export const SpatialAICorePortal: React.FC = () => {
       {/* 3D Armillary Sphere & Core */}
       <ParchmentCard glow className="p-6 text-center space-y-2">
         <JarvisAICore3D />
-        <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#6b1d2f] text-[#f5ebe0] font-sans text-xs font-semibold shadow-md border border-[#c9a45c]/40">
+        <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#6b1d2f] text-[#f5ebe0] font-sans text-xs font-semibold shadow-md border border-[#c9a45c]/40 mb-2">
           ACADEMIC LIBRARIAN AI ASSISTANT
         </div>
+        {/* Agent selection removed - handled under the hood by master orchestrator */}
       </ParchmentCard>
 
       {/* Messages Feed */}
@@ -87,7 +147,7 @@ export const SpatialAICorePortal: React.FC = () => {
         {messages.map((msg) => (
           <div key={msg.id} className={`flex flex-col ${msg.sender === 'USER' ? 'items-end' : 'items-start'}`}>
             <span className="text-[10px] text-[#9a9082] font-medium mb-1">
-              {msg.sender === 'USER' ? 'ALEX VANCE' : 'ACADEMIC LIBRARIAN AI'} • {msg.timestamp}
+              {msg.sender === 'USER' ? 'USER' : 'ACADEMIC LIBRARIAN AI'} • {msg.timestamp}
             </span>
 
             <div className={`max-w-xl p-4 rounded-xl text-xs space-y-2.5 ${
@@ -151,6 +211,10 @@ export const SpatialAICorePortal: React.FC = () => {
 
       {/* Command Input Form */}
       <form onSubmit={handleSend} className="flex items-center space-x-3">
+        <label className="flex items-center justify-center p-2.5 rounded-xl bg-[#14100c] border border-[#28211a] hover:border-[#c9a45c]/50 text-[#c9a45c] transition-colors cursor-pointer" title="Upload Timetable or Syllabus">
+          <Paperclip className="w-5 h-5" />
+          <input type="file" className="hidden" onChange={handleFileUpload} disabled={isTyping} accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" />
+        </label>
         <input
           type="text"
           value={input}

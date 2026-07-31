@@ -1,0 +1,46 @@
+import { createSemesterRepository, createSubjectRepository, } from "../repositories/semesterRepository.js";
+import { AppError } from "../lib/errors.js";
+export function createSemesterService(prisma) {
+    const semesterRepo = createSemesterRepository(prisma);
+    const subjectRepo = createSubjectRepository(prisma);
+    return {
+        listForUser(userId) {
+            return semesterRepo.listForUser(userId);
+        },
+        async create(userId, input) {
+            const startDate = new Date(input.startDate);
+            const endDate = new Date(input.endDate);
+            if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+                throw AppError.validation("startDate and endDate must be valid dates.");
+            }
+            if (endDate <= startDate) {
+                throw AppError.validation("endDate must be after startDate.");
+            }
+            return semesterRepo.create({
+                userId,
+                name: input.name,
+                startDate,
+                endDate,
+                timezone: input.timezone,
+            });
+        },
+        async createSubject(userId, semesterId, input) {
+            const semester = await semesterRepo.findByIdForUser(semesterId, userId);
+            if (!semester)
+                throw AppError.notFound("Semester not found.");
+            const duplicate = await subjectRepo.findByCode(semesterId, input.code);
+            if (duplicate) {
+                throw AppError.conflict(`Subject code "${input.code}" already exists in this semester.`);
+            }
+            return subjectRepo.create({
+                semesterId,
+                userId,
+                code: input.code,
+                name: input.name,
+                credits: input.credits,
+                color: input.color,
+            });
+        },
+    };
+}
+//# sourceMappingURL=semesterService.js.map

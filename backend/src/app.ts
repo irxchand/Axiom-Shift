@@ -1,5 +1,6 @@
 import Fastify, { type FastifyInstance } from "fastify";
 import cors from "@fastify/cors";
+import multipart from "@fastify/multipart";
 import type { PrismaClient } from "@prisma/client";
 import { env } from "./lib/env.js";
 import requestIdPlugin from "./plugins/requestId.js";
@@ -14,6 +15,12 @@ import timetableRoutes from "./routes/timetable.js";
 import calendarRoutes from "./routes/calendar.js";
 import stateRoutes from "./routes/state.js";
 import evaluationRoutes from "./routes/evaluation.js";
+import documentHandoffsRoutes from "./routes/documentHandoffs.js";
+import sourceWorkspacesRoutes from "./routes/sourceWorkspaces.js";
+import chatRoutes from './routes/chat.js';
+import agentRunsRoutes from './routes/agentRuns.js';
+import plansRoutes from './routes/plans.js';
+import notificationsRoutes from './routes/notifications.js';
 
 export interface BuildAppOverrides {
   /**
@@ -40,6 +47,7 @@ export async function buildApp(overrides: BuildAppOverrides = {}): Promise<Fasti
   await app.register(requestIdPlugin);
   await app.register(errorHandlerPlugin);
   await app.register(cors, { origin: env.CORS_ORIGIN });
+  await app.register(multipart);
 
   if (overrides.prisma) {
     app.decorate("prisma", overrides.prisma);
@@ -63,6 +71,21 @@ export async function buildApp(overrides: BuildAppOverrides = {}): Promise<Fasti
 
   // Phase 4: Evaluation, Marks, GPA, and Risk
   await app.register(evaluationRoutes);
+
+  // Phase 6: Source Workspace Handoff
+  // Phase 6 Routes
+  app.register(documentHandoffsRoutes);
+  app.register(sourceWorkspacesRoutes);
+
+  // Phase 7 Routes
+  app.register(chatRoutes);
+  app.register(agentRunsRoutes);
+
+  // Phase 8 Routes
+  app.register(plansRoutes);
+
+  // Phase 9 Routes
+  app.register(notificationsRoutes);
 
   return app;
 }

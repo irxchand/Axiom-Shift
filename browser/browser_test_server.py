@@ -160,13 +160,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 except Exception as e:
                     response_data = {"type": "error", "message": f"Failed to refresh page: {str(e)}"}
             elif msg == "\\q/":
-                response_data = {"type": "system", "message": "Shutting down the server. You can safely close this tab."}
-                def shutdown_server():
-                    import time
-                    time.sleep(1)
-                    if httpd:
-                        httpd.shutdown()
-                threading.Thread(target=shutdown_server).start()
+                response_data = {"type": "quit", "message": "Closing the tab... You can also close it manually."}
             else:
                 try:
                     chat.send_message(msg)

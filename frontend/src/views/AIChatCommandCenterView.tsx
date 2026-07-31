@@ -100,7 +100,7 @@ export const AIChatCommandCenterView: React.FC = () => {
             className={`flex flex-col ${msg.sender === 'USER' ? 'items-end' : 'items-start'}`}
           >
             <div className="flex items-center space-x-2 text-[10px] font-mono-tech text-slate-500 mb-1">
-              <span>{msg.sender === 'USER' ? 'ALEX VANCE' : 'JARVIS AI OS'}</span>
+              <span>{msg.sender === 'USER' ? 'USER' : 'JARVIS AI OS'}</span>
               <span>• {msg.timestamp}</span>
             </div>
 

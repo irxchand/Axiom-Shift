@@ -27,7 +27,7 @@ const authPlugin: FastifyPluginAsync = async (app) => {
     try {
       // Bypassed for local frontend dev since there is no login UI yet
       // const payload = verifyAccessToken(token);
-      request.userId = "test-user-id";
+      request.userId = "test-user";
     } catch {
       throw AppError.unauthorized("Invalid or expired token.");
     }

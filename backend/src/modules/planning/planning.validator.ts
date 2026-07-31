@@ -1,4 +1,4 @@
-import { TimeWindow, StudyBlock } from './planning.types';
+import { TimeWindow, StudyBlock } from './planning.types.js';
 
 export function checkTimeOverlap(window1: TimeWindow, window2: TimeWindow): boolean {
   return window1.startTime < window2.endTime && window1.endTime > window2.startTime;
